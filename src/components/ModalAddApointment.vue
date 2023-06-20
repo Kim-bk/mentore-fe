@@ -26,6 +26,9 @@ export default {
         }
       this.$emit('addApointment', payload);
     },
+    cancel() {
+      this.$emit('cancel');
+    }
   },
 };
 
@@ -71,7 +74,7 @@ export default {
             </div>
         </form>
         <div class="d-flex justify-content-end">
-          <button class="btn btn-danger px-4 py-2 ml-0" @click="deleteApointment">Delete</button>
+          <button class="btn btn-secondary px-4 py-2 ml-0" @click="cancel">Cancel</button>
           <button class="btn btn-primary px-4 py-2 ml-3" @click="handleClick">Add</button>
         </div>
     </VueFinalModal>
