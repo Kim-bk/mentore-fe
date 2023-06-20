@@ -29,6 +29,7 @@
     "moment": "^2.29.4",
     "puppeteer": "^20.5.0",
     "vue": "^3.2.13",
+    "vue-final-modal": "^4.4.2",
     "vue-promise-dialogs": "^2.0.0",
     "vue-router": "^4.2.1",
     "vue3-simple-alert": "^1.0.4",
