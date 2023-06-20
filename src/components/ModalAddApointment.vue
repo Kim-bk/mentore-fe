@@ -7,10 +7,6 @@ defineProps({
     type: String,
     default: undefined
   },
-  startTime: {
-    type: String,
-    default: undefined
-  },
 });
 
 const emit = defineEmits(['confirm']);
@@ -25,11 +21,12 @@ export default {
         const payload = {
             title: this.title,
             detail: this.detail,
-            duration: this.duration
+            duration: this.duration,
+            timeStart: this.timeStart
         }
       this.$emit('addApointment', payload);
-    }
-  }
+    },
+  },
 };
 
 
@@ -55,6 +52,11 @@ export default {
             </div>
 
             <div class="form-group">
+                <label for="timeStart">Time Start</label>
+                <input type="time" class="form-control" id="timeStart" aria-describedby="emailHelp" v-model="timeStart">
+            </div>
+
+            <div class="form-group">
                 <label for="duration">Duration</label>
                 <select class="form-control" name="duration" v-model="duration">
                     <option class="my-1" value="5">5 minutes</option>
@@ -68,7 +70,10 @@ export default {
                 </select>
             </div>
         </form>
-        <button class="btn btn-primary px-4 py-2" @click="handleClick">Add</button>
+        <div class="d-flex justify-content-end">
+          <button class="btn btn-danger px-4 py-2 ml-0" @click="deleteApointment">Delete</button>
+          <button class="btn btn-primary px-4 py-2 ml-3" @click="handleClick">Add</button>
+        </div>
     </VueFinalModal>
   </template>
   

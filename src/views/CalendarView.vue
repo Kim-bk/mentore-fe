@@ -22,10 +22,29 @@ const id = ref(10)
 let title = ref('')
 let detail = ref('')
 let duration = ref(0)
-let startTime = ref('')
+let dateStart = ref('')
+let timeStart = ref('')
 let cal = null;
 
 // Call API to get apointment list
+const res = axios.get('http://localhost:3000/apointments')
+.then((res) => {
+    console.log(res)
+
+    res.data.forEach(element => {
+        apointmentEvents.value.push({
+            id: element.id,
+            userId: element.userId,
+            title: element.title,
+            detail: element.detail,
+            start: element.dateStart,
+            duration: element.duration,
+        })
+    });
+})
+.catch((err) => {
+    console.log(err)
+})
 let apointmentEvents = ref([
     {
         id: '1',
@@ -61,14 +80,26 @@ const options = reactive({
     select:(arg) =>{
         // Open modal to add apointment
         open()
+        
         id.value = id.value + 1
         cal = arg.view.calendar
-        startTime = arg.startStr
+        dateStart = arg.startStr
         
     }, 
     eventClick: (arg) => {
         if (arg.event){
-            arg.event.remove()
+            if (confirm(`Are you sure you want to delete the apointment '${arg.event.title}'`)) {
+                arg.event.remove()
+
+                // Call API remove the apointment
+                const res = axios.delete(`http://localhost:3000/apointments/${arg.event.id}`)
+                .then((res) => {
+                    console.log(res)
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+            }
         }
     },
     eventAdd:(arg) =>{
@@ -96,7 +127,7 @@ const options = reactive({
 
 options.events = apointmentEvents
 
-const { open, close } = useModal({
+const { open, close, patchOptions } = useModal({
     component: ModalAddApointment,
     attrs: {
       title: 'Hello World!',
@@ -105,6 +136,7 @@ const { open, close } = useModal({
         title.value = payload.title
         detail.value = payload.detail
         duration.value = payload.duration
+        timeStart.value = payload.timeStart
 
         // Call API add the apointment
         const data = {
@@ -112,15 +144,24 @@ const { open, close } = useModal({
             userId: '1',
             title: payload.title,
             detail: payload.detail,
-            start: startTime,
+            dateStart: dateStart,
+            timeStart: timeStart,
             duration: payload.duration,
         }
+
+        const res = axios.post('http://localhost:3000/apointments', data)
+        .then((res) => {
+            console.log(res)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
 
         cal.unselect()
         cal.addEvent({
             id: data.id,
-            title: data.title,
-            start: data.start,
+            title: `${timeStart.value}: ${data.title}`,
+            start: data.dateStart,
             end: data.end,
             allDay: true
         })
@@ -129,7 +170,9 @@ const { open, close } = useModal({
     },
 })
 
+
 import HeaderBar from '@/components/HeaderBar.vue'
+import axios from 'axios'
 components :{
 		HeaderBar: HeaderBar
 	};
