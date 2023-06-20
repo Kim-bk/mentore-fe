@@ -17,7 +17,6 @@ import interactionPlugin from '@fullcalendar/interaction'
 import useEvents from '@/composables/useEvent.js'
 import { ModalsContainer, useModal  } from 'vue-final-modal'
 import ModalAddApointment from '@/components/ModalAddApointment.vue'
-import { v4 as uuidv4 } from 'uuid'
 
 const id = ref(10)
 let title = ref('')
