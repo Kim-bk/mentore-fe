@@ -6,15 +6,17 @@
             <form @submit="handleSubmit">
                 <div class="form-group">
                 <label for="title">Tiêu đề</label>
-                <input type="text" id="title" v-model="title" :placeholder="postData.title" required>
+                <input type="text" id="title" v-model="title" required/>
+                <pre>{{ postData.title }}</pre>
                 </div>
                 <div class="form-group">
                 <label for="content">Nội dung</label>
-                <textarea id="content" v-model="content" rows="5" :placeholder="postData.content"  required></textarea>
+                <textarea id="content" v-model="content" rows="5" required></textarea>
+                <pre>{{ postData.content }}</pre>
                 </div>
                 <div class="form-group">
                 <label for="content">Hình ảnh</label>
-                <img :src="postData.fileUrl">
+                <img :src="postData.fileUrl" onclick="popupImg()">
                 </div>
                 <div class="form-group">
                   <label for="content">Chọn ảnh</label>
@@ -26,7 +28,7 @@
                 </div>
                 <p style="font-weight:bold; color:green; font-size:18px;"> {{errorM}} </p>
                 <button type="submit">Cập nhật</button>
-                <button class="btn-close" @click="togglePopupUpdate()" style="margin-left:400px; width:100px;">Đóng</button>
+                <button class="btn-close" @click="$router.go(-1)" style="margin-left:420px; width:150px;">Quay lại</button>
             </form>
          </div>
         </div>
@@ -36,19 +38,9 @@
   </template>
   
   <script>
-  import {createPost} from '@/services/PostService.js'
+  import {createPost, getPostById} from '@/services/PostService.js'
 
   export default {
-    props:  {
-        togglePopupUpdate: {
-        type: Function,
-        required: true,
-    },
-        postData: {
-            type: Object,
-            required: true,
-        },
-    },
     data() {
       return {
         title: '',
@@ -56,8 +48,25 @@
         file: null,
         errorM: '',
         videoUrl: '',
+        id: this.$route.params.id, //this is the id from the browser
+        postData: {},
       };
     },
+
+    mounted() {
+      getPostById(this.id)
+      .then(res => {
+        if (res.status === 200)
+        {
+          this.postData = res.data
+          console.log(this.postData)
+        }
+      })
+    .catch(e => {
+        console.log(e)
+        }
+    ); },
+
     methods: {
       handleSubmit(event) {
         event.preventDefault();
@@ -92,7 +101,7 @@
 					if (res.status === 200)
 					{
             console.log(res)
-            this.errorM = "Tạo bài thành công!"
+            this.errorM = "Cập nhật bài thành công!"
             window.location.reload()
 					}
 				})
@@ -105,13 +114,13 @@
   </script>
   
   <style scoped>
-  .post-form {
+  /* .post-form {
     margin: 0 auto;
-  }
+  } */
 
   .popup{
     position: fixed;
-    top: 40;
+    top: 0;
     bottom: 0;
     right: 0;
     left: 0;

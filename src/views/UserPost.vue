@@ -59,7 +59,7 @@
                       {{ post.time }}
                     </p>
                   </div>
-
+             
                   <!-- Main Menu -->
                   <nav class="main-menu show navbar-expand-md">
                     <div
@@ -90,33 +90,25 @@
                             class="dropdown-menu"
                             style="width: 30px"
                           >
-                            <li style="position: relative;">
+                            <li>
                                   <button
                                     @click="
-                                      () => togglePopupUpdate('buttonTriggerUpdate')
+                                      () => updatePost(post.id)
                                     "
                                   >
                                     Cập nhật
                                   </button>
-                            </li>
-                            <div>
-                                <PopupUpdatePost
-                                  v-if="popupTriggersUpdate.buttonTriggerUpdate"
-                                  :togglePopupUpdate="
-                                    () =>
-                                      togglePopupUpdate('buttonTriggerUpdate')
-                                  "
-                                  :postData="post"
-                                >
-                                </PopupUpdatePost>
-                              </div>
 
+                              
+                            </li>
                             <li>
                               <button @click="() => deletePost(post.id)">
                                 Xóa
                               </button>
                             </li>
+                        
                           </ul>
+
                         </li>
                       </ul>
                       <!-- Login Nav -->
@@ -495,7 +487,7 @@ export default {
     });
 
     const popupTriggersUpdate = ref({
-      buttonTriggerUpdate: false,
+      buttonTriggerUpdate: true,
     });
 
     const togglePopupUpdate = (trigger) => {
@@ -541,6 +533,10 @@ export default {
         playpause.title = "Play";
         audio.pause();
       }
+    },
+
+    updatePost(id){
+      window.location.href = 'http://localhost:8080/post/update/'+id
     },
 
     async deletePost(id) {
