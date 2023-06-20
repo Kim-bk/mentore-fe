@@ -172,9 +172,9 @@ export default{
                         var vueObject = this
                         vueObject.imgSrc = 'https://ui-avatars.com/api/?name=' + res.data.email;
 					}
-                    else if (res.status === 401)
+                    if (res.status === 401)
                     {
-                        window.location("http://localhost:8080");
+                        window.location.replace("http://localhost:8080/");
                     }
 				})
 			.catch(e => {

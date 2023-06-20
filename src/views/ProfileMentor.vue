@@ -35,6 +35,7 @@
                         <label class="small mb-1" for="inputBirthday">Ngày sinh:</label>
                         <p>{{mentor.birthDate}}</p>
                     </div>
+                    <button @click="bookAppointment()">Đặt lịch hẹn</button>
                 </div>
             </div>
         </div>
@@ -43,7 +44,6 @@
             <div class="card mb-4">
                 <div class="card-header">Thông tin cá nhân</div>
                 <div class="card-body">
-                    <form>
                         <!-- Form Row        -->
                         <div class="row gx-3 mb-3">
                             <!-- Form Group (organization name)-->
@@ -61,11 +61,34 @@
                             <label class="small mb-1" for="inputEmailAddress">Giới thiệu bản thân:</label>
                             <p>{{mentor.description}}</p>
                         </div>
-                        <button type="submit" class="small mb-1" for="inputEmailAddress">Đặt lịch hẹn</button>
-                    </form>
+                       
+                </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-header">Kinh nghiệm làm việc</div>
+                <div class="card-body">
+                        <!-- Form Row        -->
+                        <div class="row gx-3 mb-3">
+                            <!-- Form Group (organization name)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputOrgName">Công việc hiện tại:</label>
+                                <p>{{mentor.currentJob}}</p>
+                            </div>
+                            <!-- Form Group (location)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputLocation">Nơi ở:</label>
+                                <p>{{mentor.locationName}}</p>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="small mb-1" for="inputEmailAddress">Giới thiệu bản thân:</label>
+                            <p>{{mentor.description}}</p>
+                        </div>
+                       
                 </div>
             </div>
         </div>
+   
     </div>
 </div>
 </template>
@@ -96,7 +119,13 @@ export default({
     .catch(e => {
         console.log(e)
         }
-    ); }
+    ); },
+
+    methods:{
+        bookAppointment(){
+            window.location.href = 'http://localhost:8080/calendar/mentor/'+this.id
+        }
+    }
 })
 </script>
 

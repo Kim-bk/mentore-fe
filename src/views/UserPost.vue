@@ -6,12 +6,20 @@
     <!-- End Main Header -->
     <!-- Slider Section Two -->
     <section class="slider-section-two">
+     
       <div class="container">
         <div class="row justify-content-md-center" id="content">
+          <div class="p-2" >
+              <button style="width:130px;position:fixed; z-index:10; bottom:0; left: 0" @click="() => reloadData()">
+                        Reload
+            </button>
+          </div>
           <div class="col-md-8 feeds">
             <!-- User Create Post -->
             <div class="feed d-flex flex-column">
+            
               <div class="p-2">
+            
                 <button @click="() => togglePopup('buttonTrigger')">
                   <img
                     :src="require('../assets/images/add.jpg')"
@@ -154,11 +162,11 @@
                         :src="require('../assets/images/suprise.svg')"
                       />
                       <p style="font-size: 16px; right: -90px; bottom: 25px">
-                        15
+                        0
                       </p>
                     </div>
                     <div class="col" style="text-align: right; font-size: 16px">
-                      <a href="#">15 Comments</a> <a href="#">8 Shares</a>
+                      <a href="#">0 Comments</a> <a href="#">0 Shares</a>
                     </div>
                   </div>
                   <hr />
@@ -507,6 +515,20 @@ export default {
   },
 
   methods: {
+    reloadData(){
+      getUserPosts()
+      .then((res) => {
+        if (res.status === 200) {
+          this.userPosts = res.data;
+          console.log(this.userPosts);
+          window.scrollTo(0,0);
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    },
+    
     funcLike(btn) {
       var id_button = btn;
       //console.log("button" + btn);

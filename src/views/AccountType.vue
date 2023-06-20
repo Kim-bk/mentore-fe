@@ -9,14 +9,14 @@
     <div class="account-type">
       <div class="main">
         <div class="khoi">
-          <img src="@/assets/images/account-type/mentor.png" />
+          <img :src= "require('../assets/images/account-type/mentor.png')"/>
           <router-link to="/info-mentor">Mentor</router-link>
         </div>
       </div>
       <div class="main">
         <div class="khoi">
-          <img src="@/assets/images/account-type/mentee.png" />
-          <a href="">Mentee</a>
+          <img :src= "require('@/assets/images/account-type/mentee.png')"/>
+          <router-link to="/register">Mentee</router-link>
         </div>
       </div>
     </div>

@@ -5,8 +5,8 @@ export async function createPost(data) {
     return response;
 }
 
-export async function updatePost(data) {
-    const response = await axios.put(`/api/post`, data, {headers: { 'Authorization': 'Bearer ' + localStorage.getItem('accessToken') }});
+export async function updatePost(data, id) {
+    const response = await axios.put(`/api/post/`+id, data, {headers: { 'Authorization': 'Bearer ' + localStorage.getItem('accessToken') }});
     return response;
 }
 

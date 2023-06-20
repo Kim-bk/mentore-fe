@@ -17,7 +17,7 @@ import interactionPlugin from '@fullcalendar/interaction'
 import useEvents from '@/composables/useEvent.js'
 import { ModalsContainer, useModal  } from 'vue-final-modal'
 import ModalAddApointment from '@/components/ModalAddApointment.vue'
-import {createAppointment, getUserAppointment, deleteAppointment} from '../services/AppointmentService';
+import {createAppointment, getMentorAppointments} from '../services/AppointmentService';
 
 const id = ref(10)
 let title = ref('')
@@ -25,10 +25,11 @@ let detail = ref('')
 let duration = ref(0)
 let dateStart = ref('')
 let timeStart = ref('')
-let cal = null;
+let cal = null
+
 
 // Call API to get apointment list
-const res = axios.get('http://localhost:3000/apointments')
+const res = getMentorAppointments()
 .then((res) => {
     console.log(res)
 
@@ -46,26 +47,7 @@ const res = axios.get('http://localhost:3000/apointments')
 .catch((err) => {
     console.log(err)
 })
-let apointmentEvents = ref([
-    {
-        id: '1',
-        userId: '1',
-        title: 'All Day Event',
-        detail: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.',
-        start: '2023-06-20',
-        duration: '1',
-    },
-    {
-        id: '2',
-        userId: '1',
-        title: 'All Day Event 2',
-        detail: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.',
-        start: '2023-06-23',
-        duration: '1',
-    }
-])
 
-const {getEvents, createEvent, updateEvent, deleteEvent} = useEvents()
 
 const options = reactive({
     plugins: [dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin],
@@ -81,28 +63,9 @@ const options = reactive({
     select:(arg) =>{
         // Open modal to add apointment
         open()
-        
-        id.value = id.value + 1
         cal = arg.view.calendar
         dateStart = arg.startStr
-        
     }, 
-    eventClick: (arg) => {
-        if (arg.event){
-            if (confirm(`Are you sure you want to delete the apointment '${arg.event.title}'`)) {
-                arg.event.remove()
-
-                // Call API remove the apointment
-                const res = axios.delete(`http://localhost:3000/apointments/${arg.event.id}`)
-                .then((res) => {
-                    console.log(res)
-                })
-                .catch((err) => {
-                    console.log(err)
-                })
-            }
-        }
-    },
 });
 
 options.events = apointmentEvents
@@ -121,16 +84,14 @@ const { open, close, patchOptions } = useModal({
 
         // Call API add the apointment
         const data = {
-            id: id.value.toString(),
-            userId: '1',
             title: payload.title,
             detail: payload.detail,
             dateStart: dateStart,
             timeStart: timeStart,
-            duration: payload.duration,
+            mentorId: mentorId,
         }
 
-        const res = axios.post('http://localhost:3000/apointments', data)
+        const res = createAppointment(data)
         .then((res) => {
             console.log(res)
         })

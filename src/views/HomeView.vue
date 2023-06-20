@@ -218,7 +218,7 @@ data-aos-duration="2000">
 <p style="font-size:52px;font-weight:900">ĐỒNG HÀNH CÙNG MENTOR?</p>
 <p style="font-size:20px">Đăng Ký & Kết Nối Cùng Mentor</p>
 <div class="btns-box" style="margin-top:55px;">
-  <router-link to="/register" class="theme-btn btn-style-four">Đăng ký ngay</router-link>
+  <router-link to="/account-type" class="theme-btn btn-style-four">Đăng ký ngay</router-link>
   <!-- <a href="account_type.html" class="theme-btn btn-style-four"><span class="txt">
       Đăng ký ngay ></span></a> -->
 
@@ -236,7 +236,7 @@ data-aos-duration="2000">
 
   <div class="col-sm-0" style="width:20px;"></div>
   <div class="col-sm-5 be-mentor" :style="{ backgroundImage: `url(${require('@/assets/images/be-mentor-2.jpg')})` }">
-    <router-link to="/register"><p>Đăng ký Mentor</p></router-link>
+    <router-link to="/account-type"><p>Đăng ký tài khoản</p></router-link>
   </div>
 </div>
 </div>

@@ -15,6 +15,7 @@ import UserPost from '@/views/UserPost.vue';
 import PopupPost from '@/components/PopupCreatePost.vue';
 import ProfileMentor from '@/views/ProfileMentor.vue';
 import PopupUpdatePost from '@/components/PopupUpdatePost.vue';
+import MentorCalendar from '@/views/MentorCalendar.vue';
 
 const routes = [
   {
@@ -78,6 +79,11 @@ const routes = [
     path: '/post/update/:id',
     component: PopupUpdatePost
   },
+  {
+    path: '/calendar/mentor/:id',
+    component: MentorCalendar
+  },
+  
 ]
 
 const router = createRouter({
