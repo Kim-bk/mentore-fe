@@ -3,6 +3,8 @@
 
     <FullCalendar v-bind:options="options" style="top:110px; left: 25%; position: fixed;
     width: 50vw; height: 20vh"></FullCalendar> 
+
+    <ModalsContainer />
 </template>
 
 <script setup>
@@ -13,8 +15,35 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import listPlugin from '@fullcalendar/list'
 import interactionPlugin from '@fullcalendar/interaction'
 import useEvents from '@/composables/useEvent.js'
+import { ModalsContainer, useModal  } from 'vue-final-modal'
+import ModalAddApointment from '@/components/ModalAddApointment.vue'
 
 const id = ref(10)
+let title = ref('')
+let detail = ref('')
+let duration = ref(0)
+let startTime = ref('')
+let cal = null;
+
+// Call API to get apointment list
+let apointmentEvents = ref([
+    {
+        id: '1',
+        userId: '1',
+        title: 'All Day Event',
+        detail: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.',
+        start: '2023-06-20',
+        duration: '1',
+    },
+    {
+        id: '2',
+        userId: '1',
+        title: 'All Day Event 2',
+        detail: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.',
+        start: '2023-06-23',
+        duration: '1',
+    }
+])
 
 const {getEvents, createEvent, updateEvent, deleteEvent} = useEvents()
 
@@ -30,30 +59,25 @@ const options = reactive({
     selectable:true,
     weekends:true,
     select:(arg) =>{
+        // Open modal to add apointment
+        open()
         id.value = id.value + 1
-        const cal = arg.view.calendar
-        cal.unselect()
-        cal.addEvent({
-            id: id.value.toString(),
-            title: "New event" + id.value.toString(),
-            start: arg.start,
-            end: arg.end,
-            allDay: true
-        })
-    },
+        cal = arg.view.calendar
+        startTime = arg.startStr
+        
+    }, 
     eventClick: (arg) => {
         if (arg.event){
             arg.event.remove()
         }
     },
-    events:[],
     eventAdd:(arg) =>{
         // createEvent({
-        //     id: arg.event.id,
-        //     title: arg.event.title,
-        //     start: arg.event.start,
-        //     end: arg.event.end,
-        //     allDay: arg.event.allDay
+        //     id: arg.id,
+        //     title: arg.title,
+        //     start: arg.start,
+        //     end: arg.end,
+        //     allDay: arg.allDay
         // })
     },
     eventChange:(arg) =>{
@@ -70,9 +94,42 @@ const options = reactive({
     },
 });
 
-options.events = getEvents.value
+options.events = apointmentEvents
 
-import HeaderBar from '@/components/HeaderBar.vue';
+const { open, close } = useModal({
+    component: ModalAddApointment,
+    attrs: {
+      title: 'Hello World!',
+      onAddApointment(payload) {
+        console.log(payload)
+        title.value = payload.title
+        detail.value = payload.detail
+        duration.value = payload.duration
+
+        // Call API add the apointment
+        const data = {
+            id: id.value.toString(),
+            userId: '1',
+            title: payload.title,
+            detail: payload.detail,
+            start: startTime,
+            duration: payload.duration,
+        }
+
+        cal.unselect()
+        cal.addEvent({
+            id: data.id,
+            title: data.title,
+            start: data.start,
+            end: data.end,
+            allDay: true
+        })
+        close()
+      },
+    },
+})
+
+import HeaderBar from '@/components/HeaderBar.vue'
 components :{
 		HeaderBar: HeaderBar
 	};
