@@ -1,5 +1,4 @@
 <template>
-
   <div class="page-wrapper">
     <!-- Preloader -->
     <div class="preloader"></div>
@@ -7,691 +6,139 @@
     <!-- End Main Header -->
     <!-- Slider Section Two -->
     <section class="slider-section-two">
+     
       <div class="container">
         <div class="row justify-content-md-center" id="content">
+          <div class="p-2" >
+              <button style="width:130px;position:fixed; z-index:10; bottom:0; left: 0" @click="() => reloadData()">
+                        Reload
+            </button>
+          </div>
           <div class="col-md-8 feeds">
-            <!-- Feed 1 -->
-            <div class="feed d-flex flex-column feed1">
-              <div class="p-2" style="height: 130px">
-                <div style="position: relative">
-                  <img
-                    src="@/assets/images/user/user1.png"
-                    alt="Avatar"
-                    class="avatar"
-                    style="cursor: pointer"
-                  />
-                  <p
-                    class="name-user"
-                    style="
-                      right: -95px;
-                      bottom: 75px;
-                      font-weight: bold;
-                      font-size: 16px;
-                    "
-                  >
-                    Tuong Vy L
-                  </p>
-                  <p
-                    class="name-user"
-                    style="
-                      right: -95px;
-                      bottom: 85px;
-                      font-weight: bold;
-                      font-size: 13px;
-                    "
-                  >
-                    15 phút trước
-                  </p>
-                </div>
-              </div>
-
-              <div class="p-2">
-                <div class="text-feed">
-                  <p style="font-weight: bold; color: black; bottom: 15px">
-                    5 năm chinh chiến nghề sales xuất nhập khẩu – Sướng và khổ?
-                  </p>
-                  Dạo này các em gửi cho mình nhiều tin nhắn tâm sự chuyện chọn
-                  ngành học. Các em ibx mình thì toàn hỏi về ngành XNK. Nhiều
-                  bạn hỏi quá, mình không trả lời hết, nên hôm nay post bài này
-                  cho các bạn tham khảo.
-                  <br />
-                  Có em hỏi “Chị ơi, em thích nghề sales quá, bán hàng được gặp
-                  người này người kia mở rộng mối quan hệ. Lương lại còn cao
-                  ngất ngưởng sướng quá chị ạ. Ngoài những cái sướng ra thì nghề
-                  sales XNK có gì vất vả không chị?” Trả lời ngay và luôn cho em
-                  gái là: những cái sướng em thấy chỉ là bề nổi của tảng băng
-                  chìm
-                  <br />
-                  … <a href="#">See more</a>
-                </div>
-              </div>
-              <div class="p-2 row" style="height: 30px">
-                <div class="col" style="bottom: 5px">
-                  <img class="icon-react" :src="require('../assets/images/love.svg')"/>
-                  <img class="icon-react" :src="require('../assets/images/like.svg')" />
-                  <img class="icon-react" :src="require('../assets/images/suprise.svg')" />
-                  <p style="font-size: 16px; right: -90px; bottom: 25px">15</p>
-                </div>
-                <div class="col" style="text-align: right; font-size: 16px">
-                  <a href="#">15 Comments</a> <a href="#">8 Shares</a>
-                </div>
-              </div>
-              <hr />
-              <div class="p-2" style="bottom: 20px; position: relative">
-                <div class="row" style="text-align: center; font-size: 16px">
-                  <div class="col-sm" style="display: flex">
-                    <button id="feed1"  @click="funcLike('feed1')">
-                      <div id="like_feed1">
-                        <img
-                          class="user-action"
-                          src="@/assets/images/user-like.png"
-                        />
-                        Like
-                      </div>
-                      <div
-                        style="color: #347ec1; display: none"
-                        id="blue_feed1"
-                      >
-                        <img
-                          class="user-action"
-                          src="@/assets/images/like-blue.png"
-                        />
-                        Like
-                      </div>
-                    </button>
-                  </div>
-                  <div class="col-sm" style="display: flex">
-                    <button>
-                      <img
-                        class="user-action"
-                        src="@/assets/images/user-comment.jpg"
-                        style="width: 20px; height: 20px"
-                      />
-                      Comment
-                    </button>
-                  </div>
-                  <div class="col-sm" style="display: flex">
-                    <button>
-                      <img
-                        class="user-action"
-                        src="@/assets/images/user-share.png"
-                        style="width: 25px; height: 25px"
-                      />
-                      Share
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Feed 2 -->
-            <div class="feed d-flex flex-column feed2">
-              <div class="p-2" style="height: 130px">
-                <div style="position: relative">
-                  <img
-                    src="@/assets/images/user/user2.png"
-                    alt="Avatar"
-                    class="avatar"
-                    style="cursor: pointer"
-                  />
-                  <p
-                    class="name-user"
-                    style="
-                      right: -95px;
-                      bottom: 75px;
-                      font-weight: bold;
-                      font-size: 16px;
-                    "
-                  >
-                    Tran Minh Tan
-                  </p>
-                  <p
-                    class="name-user"
-                    style="
-                      right: -95px;
-                      bottom: 85px;
-                      font-weight: bold;
-                      font-size: 13px;
-                    "
-                  >
-                    2 giờ trước
-                  </p>
-                </div>
-              </div>
-
-              <div class="p-2">
-                <div class="text-feed">
-                  <p style="font-weight: bold; color: black; bottom: 15px">
-                    Anh chị cô chú mentor trên Mentoré cho em/ con hỏi chút ạ.
-                  </p>
-
-                  Em năm nay học 12, sắp sửa thi đại học. Em tính thi ngành công
-                  nghệ thông tin. Anh hàng xóm em quen cũng học ngành này, đã ra
-                  trường 3 năm. Ảnh khuyên em không nên học chính quy vì chương
-                  trình đào tạo 4 năm, không học trọng tâm chuyên môn, học nhiều
-                  môn đại cương vô bổ. Ảnh nói học xong 12 thì đăng ký học lập
-                  trình ở các trung tâm là được, chịu khó thực hành nhiều.
-                  <br />
-                  Em cũng không biết có nên nghe lời ảnh không. Nhờ các anh chị
-                  cô chú mentor giúp với ạ!
-                  <br />
-                </div>
-              </div>
-              <div class="p-2 row" style="height: 30px">
-                <div class="col" style="bottom: 5px">
-                  <img class="icon-react" src="@/assets/images/like.svg" />
-                  <img class="icon-react" src="@/assets/images/suprise.svg" />
-                  <img class="icon-react" src="@/assets/images/love.svg" />
-                  <p style="font-size: 16px; right: -90px; bottom: 25px">30</p>
-                </div>
-                <div class="col" style="text-align: right; font-size: 16px">
-                  <a href="#">20 Comments</a> <a href="#">10 Shares</a>
-                </div>
-              </div>
-              <hr />
-              <div class="p-2" style="bottom: 20px; position: relative">
-                <div class="row" style="text-align: center; font-size: 16px">
-                  <div class="col-sm" style="display: flex">
-                    <button id="feed2"  @click="funcLike(this)">
-                      <div id="like_feed2">
-                        <img
-                          class="user-action"
-                          src="@/assets/images/user-like.png"
-                        />
-                        Like
-                      </div>
-                      <div
-                        style="color: #347ec1; display: none"
-                        id="blue_feed2"
-                      >
-                        <img
-                          class="user-action"
-                          src="@/assets/images/like-blue.png"
-                        />
-                        Like
-                      </div>
-                    </button>
-                  </div>
-                  <div class="col-sm" style="display: flex">
-                    <button>
-                      <img
-                        class="user-action"
-                        src="@/assets/images/user-comment.jpg"
-                        style="width: 20px; height: 20px"
-                      />
-                      Comment
-                    </button>
-                  </div>
-                  <div class="col-sm" style="display: flex">
-                    <button>
-                      <img
-                        class="user-action"
-                        src="@/assets/images/user-share.png"
-                        style="width: 25px; height: 25px"
-                      />
-                      Share
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Feed 3 -->
-            <div class="feed d-flex flex-column feed3">
-              <div class="p-2" style="height: 130px">
-                <div style="position: relative">
-                  <img
-                    src="@/assets/images/user/user3.png"
-                    alt="Avatar"
-                    class="avatar"
-                    style="cursor: pointer"
-                  />
-                  <p
-                    class="name-user"
-                    style="
-                      right: -95px;
-                      bottom: 75px;
-                      font-weight: bold;
-                      font-size: 16px;
-                    "
-                  >
-                    David Jackson
-                  </p>
-                  <p
-                    class="name-user"
-                    style="
-                      right: -95px;
-                      bottom: 85px;
-                      font-weight: bold;
-                      font-size: 13px;
-                    "
-                  >
-                    5 giờ trước
-                  </p>
-                </div>
-              </div>
-
-              <div class="p-2">
-                <div class="text-feed">
-                  <p style="font-weight: bold; bottom: 15px">
-                    [FOR FRESH GRADS]
-                    <br />
-                    DON'T MISS OUT ON THE CHANCE TO JOIN FAST RETAILING VIETNAM
-                    (UNIQLO / GU)
-                  </p>
-                  Application form of Production Management Candidates only
-                  opens till 31/03/2022. Grab this golden chance to work in a
-                  fast-growing and collaborative environment with attractive
-                  benefits:
-
-                  <br />
-                  … <a href="#">See more</a>
-                </div>
-                <img
-                  src="@/assets/images/feed3.jpg"
-                  style="height: 425px; width: 100%; cursor: pointer"
-                />
-              </div>
-
-              <div class="p-2 row" style="height: 30px">
-                <div class="col" style="bottom: 5px">
-                  <img class="icon-react" src="@/assets/images/like.svg" />
-                  <img class="icon-react" src="@/assets/images/love.svg" />
-                  <img class="icon-react" src="@/assets/images/suprise.svg" />
-
-                  <p style="font-size: 16px; right: -90px; bottom: 25px">150</p>
-                </div>
-                <div class="col" style="text-align: right; font-size: 16px">
-                  <a href="#">55 Comments</a> <a href="#">80 Shares</a>
-                </div>
-              </div>
-              <hr />
-              <div class="p-2" style="bottom: 20px; position: relative">
-                <div class="row" style="text-align: center; font-size: 16px">
-                  <div class="col-sm" style="display: flex">
-                    <button id="feed3"  @click="funcLike(this)">
-                      <div id="like_feed3">
-                        <img
-                          class="user-action"
-                          src="@/assets/images/user-like.png"
-                        />
-                        Like
-                      </div>
-                      <div
-                        style="color: #347ec1; display: none"
-                        id="blue_feed3"
-                      >
-                        <img
-                          class="user-action"
-                          src="@/assets/images/like-blue.png"
-                        />
-                        Like
-                      </div>
-                    </button>
-                  </div>
-                  <div class="col-sm" style="display: flex">
-                    <button>
-                      <img
-                        class="user-action"
-                        src="@/assets/images/user-comment.jpg"
-                        style="width: 20px; height: 20px"
-                      />
-                      Comment
-                    </button>
-                  </div>
-                  <div class="col-sm" style="display: flex">
-                    <button>
-                      <img
-                        class="user-action"
-                        src="@/assets/images/user-share.png"
-                        style="width: 25px; height: 25px"
-                      />
-                      Share
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Feed 4 -->
-            <div class="feed d-flex flex-column feed4">
-              <img
-                src="@/assets/images/feed4.png"
-                style="
-                  top: 20px;
-                  border-radius: 10px 10px 0px 0px;
-                  cursor: pointer;
-                "
-              />
-              <div class="p-2 row" style="height: 30px">
-                <div class="col" style="bottom: 5px">
-                  <img class="icon-react" src="@/assets/images/suprise.svg" />
-                  <img class="icon-react" src="@/assets/images/like.svg" />
-                  <img class="icon-react" src="@/assets/images/love.svg" />
-                  <p style="font-size: 16px; right: -90px; bottom: 25px">83</p>
-                </div>
-                <div class="col" style="text-align: right; font-size: 16px">
-                  <a href="#">50 Comments</a> <a href="#">100 Shares</a>
-                </div>
-              </div>
-              <hr />
-
-              <div class="p-2" style="bottom: 20px; position: relative">
-                <div class="row" style="text-align: center; font-size: 16px">
-                  <div class="col-sm" style="display: flex">
-                    <button id="feed4"  @click="funcLike(this)">
-                      <div id="like_feed4">
-                        <img
-                          class="user-action"
-                          src="@/assets/images/user-like.png"
-                        />
-                        Like
-                      </div>
-                      <div
-                        style="color: #347ec1; display: none"
-                        id="blue_feed4"
-                      >
-                        <img
-                          class="user-action"
-                          src="@/assets/images/like-blue.png"
-                        />
-                        Like
-                      </div>
-                    </button>
-                  </div>
-                  <div class="col-sm" style="display: flex">
-                    <button>
-                      <img
-                        class="user-action"
-                        src="@/assets/images/user-comment.jpg"
-                        style="width: 20px; height: 20px"
-                      />
-                      Comment
-                    </button>
-                  </div>
-                  <div class="col-sm" style="display: flex">
-                    <button>
-                      <img
-                        class="user-action"
-                        src="@/assets/images/user-share.png"
-                        style="width: 25px; height: 25px"
-                      />
-                      Share
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- feed5 - video -->
-            <div class="feed d-flex flex-column feed5">
-              <div class="p-2" style="height: 130px">
-                <div style="position: relative">
-                  <img
-                    src="@/assets/images/user/user3.png"
-                    alt="Avatar"
-                    class="avatar"
-                    style="cursor: pointer"
-                  />
-                  <p
-                    class="name-user"
-                    style="
-                      right: -95px;
-                      bottom: 75px;
-                      font-weight: bold;
-                      font-size: 16px;
-                    "
-                  >
-                    David Jackson
-                  </p>
-                  <p
-                    class="name-user"
-                    style="
-                      right: -95px;
-                      bottom: 85px;
-                      font-weight: bold;
-                      font-size: 13px;
-                    "
-                  >
-                    5 giờ trước
-                  </p>
-                </div>
-              </div>
-
-              <div class="p-2">
-                <div class="text-feed">
-                  <p style="font-weight: bold; bottom: 15px">
-                    Marketing là gì, có khó không?
-                  </p>
-                  Trong video này, mình sẽ chia sẻ với bạn định nghĩa của
-                  marketing cũng như các khái niệm cơ bản trong ngành marketing
-                  mà bạn cần phải nắm được. Marketing là gì? Học và làm
-                  marketing khó hay dễ? Có những khía cạnh gì trong marketing?
-                  Cùng tìm hiểu và thảo luận nhé.
-                </div>
-                <br />
-                <video style="width: 100%; cursor: pointer" controls>
-                  <source
-                    src="@/assets/video/video_feed3.mp4"
-                    type="video/mp4"
-                  />
-                  <!-- <source src="movie.ogg" type="video/ogg"> -->
-                  <!-- Your browser does not support the video tag. -->
-                </video>
-              </div>
-
-              <div class="p-2 row" style="height: 30px">
-                <div class="col" style="bottom: 5px">
-                  <img class="icon-react" src="@/assets/images/like.svg" />
-                  <img class="icon-react" src="@/assets/images/love.svg" />
-                  <img class="icon-react" src="@/assets/images/suprise.svg" />
-
-                  <p style="font-size: 16px; right: -90px; bottom: 25px">225</p>
-                </div>
-                <div class="col" style="text-align: right; font-size: 16px">
-                  <a href="#">100 Comments</a> <a href="#">101 Shares</a>
-                </div>
-              </div>
-              <hr />
-              <div class="p-2" style="bottom: 20px; position: relative">
-                <div class="row" style="text-align: center; font-size: 16px">
-                  <div class="col-sm" style="display: flex">
-                    <button id="feed5"  @click="funcLike(this)">
-                      <div id="like_feed5">
-                        <img
-                          class="user-action"
-                          src="@/assets/images/user-like.png"
-                        />
-                        Like
-                      </div>
-                      <div
-                        style="color: #347ec1; display: none"
-                        id="blue_feed5"
-                      >
-                        <img
-                          class="user-action"
-                          src="@/assets/images/like-blue.png"
-                        />
-                        Like
-                      </div>
-                    </button>
-                  </div>
-                  <div class="col-sm" style="display: flex">
-                    <button>
-                      <img
-                        class="user-action"
-                        src="@/assets/images/user-comment.jpg"
-                        style="width: 20px; height: 20px"
-                      />
-                      Comment
-                    </button>
-                  </div>
-                  <div class="col-sm" style="display: flex">
-                    <button>
-                      <img
-                        class="user-action"
-                        src="@/assets/images/user-share.png"
-                        style="width: 25px; height: 25px"
-                      />
-                      Share
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- feed6 - audio -->
-            <div class="feed d-flex flex-column feed6">
-              <!-- PRESS THE MENU BUTTON TO TRIGGER ANIMATION -->
-              <!-- PRESS PLAY BUTTON TO LISTEN THE DEMO SONG -->
-
-              <!-- As seen on: "https://dribbble.com/shots/2144866-Day-5-Music-Player-Rebound/" -->
-
-              <!-- THANK YOU! -->
-
-              <article class="screen">
-                <input
-                  type="checkbox"
-                  value="None"
-                  id="magicButton"
-                  name="check"
-                />
-                <!-- <label class="main" for="magicButton"></label> -->
-
-                <div class="coverImage"></div>
-                <!-- <div class="search"></div> -->
-                <div class="bodyPlayer"></div>
-                <div class="bar"></div>
-
-                <div class="info" style="text-align: center">
-                  <h4>
-                    KỸ SƯ NÔNG NGHIỆP<br />Hoà mình cùng thiên nhiên?| Kỹ sư
-                    Trần Thái Bình<br />NGHE ĐÚNG NGƯỜI LÀM ĐÚNG VIỆC
-                  </h4>
-                  <!-- <h3>twenty one pilots - Blurryface</h3> -->
-                </div>
-                <br />
-
-                <audio preload="auto" ref="audio" id="audio" controls>
-                  <source src="@/assets/audio/audio.mp3" />
-                </audio>
-
-                <table class="player">
-                  <td>
-                    <input type="checkbox" id="backward" /><label
-                      class="backward"
-                      for="backward"
-                    ></label>
-                  </td>
-                  <td>
-                    <input
-                      type="checkbox"
-                      id="play"
-                      title="Play"
-                      onclick="togglePlayPause()"
-                    /><label class="play" for="play"></label>
-                  </td>
-                  <td>
-                    <input type="checkbox" id="forward" /><label
-                      class="forward"
-                      for="forward"
-                    ></label>
-                  </td>
-                </table>
-
-                <table class="footer">
-                  <td>
-                    <input type="checkbox" id="love" checked /><label
-                      class="love"
-                      for="love"
-                    ></label>
-                  </td>
-                  <td>
-                    <input type="checkbox" id="shuffle" /><label
-                      class="shuffle"
-                      for="shuffle"
-                    ></label>
-                  </td>
-                  <td>
-                    <input type="checkbox" id="repeat" checked /><label
-                      class="repeat"
-                      for="repeat"
-                    ></label>
-                  </td>
-                  <td>
-                    <input type="checkbox" id="options" /><label
-                      class="options"
-                      for="options"
-                    ></label>
-                  </td>
-                </table>
-
-                <div class="current"><h2>STRESSED OUT</h2></div>
-              </article>
-
-              <div style="padding-top: 658px">
-                <div class="p-2 row" style="height: 30px">
-                  <div class="col" style="bottom: 5px">
-                    <img class="icon-react" src="@/assets/images/like.svg" />
-                    <img class="icon-react" src="@/assets/images/love.svg" />
-                    <img class="icon-react" src="@/assets/images/suprise.svg" />
-
-                    <p style="font-size: 16px; right: -90px; bottom: 25px">
-                      225
+            <div v-for="post in userPosts" :key="post.id">
+              <div class="feed d-flex flex-column" id="{{ post.id }}">
+                <div class="p-2">
+                  <div style="position: relative; height: 100px">
+                    <img
+                      :src=post.avatar
+                      alt="Avatar"
+                      class="avatar"
+                      style="cursor: pointer;"
+                      
+                    />
+                    <p
+                      class="name-user"
+                      style="
+                        right: -95px;
+                        bottom: 75px;
+                        font-weight: bold;
+                        font-size: 16px;
+                      "
+                    >
+                      {{ post.userFullName }}
+                    </p>
+                    <p
+                      class="name-user"
+                      style="
+                        right: -95px;
+                        bottom: 85px;
+                        font-weight: bold;
+                        font-size: 13px;
+                      "
+                    >
+                      {{ post.time }}
                     </p>
                   </div>
-                  <div class="col" style="text-align: right; font-size: 16px">
-                    <a href="#">100 Comments</a> <a href="#">101 Shares</a>
+             
+
+                  <div class="p-2">
+                    <div class="text-feed">
+                      <p style="font-weight: bold; color: black; bottom: 15px; font-size:21px">
+                        {{ post.title }}
+                      </p>
+
+                      <p style="font-size:17px">
+                        {{ post.content }}
+                        <br />
+                      </p>
+                    </div>
+                    <img :src="post.fileUrl" style="cursor: pointer" />
                   </div>
-                </div>
-                <hr />
-                <div class="p-2" style="bottom: 20px; position: relative">
-                  <div class="row" style="text-align: center; font-size: 16px">
-                    <div class="col-sm" style="display: flex">
-                      <button id="feed6"  @click="funcLike(this)">
-                        <div id="like_feed6">
+                  <div class="p-2 row" style="height: 30px">
+                    <div class="col" style="bottom: 5px">
+                      <img
+                        class="icon-react"
+                        :src="require('../assets/images/love.svg')"
+                      />
+                      <img
+                        class="icon-react"
+                        :src="require('../assets/images/like.svg')"
+                      />
+                      <img
+                        class="icon-react"
+                        :src="require('../assets/images/suprise.svg')"
+                      />
+                      <p style="font-size: 16px; right: -90px; bottom: 25px">
+                        0
+                      </p>
+                    </div>
+                    <div class="col" style="text-align: right; font-size: 16px">
+                      <a href="#">0 Comments</a> <a href="#">0 Shares</a>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="p-2" style="bottom: 20px; position: relative">
+                    <div
+                      class="row"
+                      style="text-align: center; font-size: 16px"
+                    >
+                      <div class="col-sm" style="display: flex">
+                        <button id="feed1" @click="funcLike('feed1')">
+                          <div id="like_feed1">
+                            <img
+                              class="user-action"
+                              :src="require('@/assets/images/user-like.png')"
+                            />
+                            Like
+                          </div>
+                          <div
+                            style="color: #347ec1; display: none"
+                            id="blue_feed1"
+                          >
+                            <img
+                              class="user-action"
+                              :src="require('@/assets/images/like-blue.png')"
+                            />
+                            Like
+                          </div>
+                        </button>
+                      </div>
+                      <div class="col-sm" style="display: flex">
+                        <button>
                           <img
                             class="user-action"
-                            src="@/assets/images/user-like.png"
+                            :src="require('@/assets/images/user-comment.jpg')"
+                            style="width: 20px; height: 20px"
                           />
-                          Like
-                        </div>
-                        <div
-                          style="color: #347ec1; display: none"
-                          id="blue_feed6"
-                        >
+                          Comment
+                        </button>
+                      </div>
+                      <div class="col-sm" style="display: flex">
+                        <button>
                           <img
                             class="user-action"
-                            src="@/assets/images/like-blue.png"
+                            :src="require('@/assets/images/user-share.png')"
+                            style="width: 25px; height: 25px"
                           />
-                          Like
-                        </div>
-                      </button>
-                    </div>
-                    <div class="col-sm" style="display: flex">
-                      <button>
-                        <img
-                          class="user-action"
-                          src="@/assets/images/user-comment.jpg"
-                          style="width: 20px; height: 20px"
-                        />
-                        Comment
-                      </button>
-                    </div>
-                    <div class="col-sm" style="display: flex">
-                      <button>
-                        <img
-                          class="user-action"
-                          src="@/assets/images/user-share.png"
-                          style="width: 25px; height: 25px"
-                        />
-                        Share
-                      </button>
+                          Share
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+            <!-- feed6 - audio -->
           </div>
 
           <div class="col-md-4 sponsor" id="sidebar">
@@ -700,7 +147,7 @@
               <img :src="require('../assets/images/sponsor/sponsor1.png')" />
             </div>
             <div class="img-sponsor">
-              <img :src="require('../assets/images/sponsor/sponsor2.jpg')"/>
+              <img :src="require('../assets/images/sponsor/sponsor2.jpg')" />
             </div>
             <div class="img-sponsor">
               <img :src="require('../assets/images/sponsor/sponsor3.png')" />
@@ -757,6 +204,7 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  height: 100%;
 }
 
 .slider-section-two .content-column .text {
@@ -771,7 +219,7 @@
 }
 .feed {
   /* position: relative;
-		top:30px; */
+          top:30px; */
   bottom: 59px;
   width: 934px;
   background-color: white;
@@ -825,6 +273,7 @@
   width: 100%;
   height: 50px;
   bottom: 45px;
+  border-radius: 10px;
 }
 
 .p-2 button:hover {
@@ -920,14 +369,51 @@
 </style>
 
 <script>
-import HeaderBar from '@/components/HeaderBar.vue';
+import HeaderBar from "@/components/HeaderBar.vue";
+import { ref } from "vue";
+import {
+  getAllPost
+} from "@/services/PostService.js";
+import useEvents from "@/composables/useEvent.js";
 
-export default({
-	components :{
-		HeaderBar: HeaderBar
-	},
+export default {
+  components: {
+    HeaderBar: HeaderBar,
+  },
 
-      methods: {
+  data() {
+    return {
+      userPosts: [],
+    };
+  },
+  mounted() {
+    getAllPost()
+      .then((res) => {
+        if (res.status === 200) {
+          this.userPosts = res.data;
+          console.log(this.userPosts);
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  },
+
+  methods: {
+    reloadData(){
+      getAllPost()
+      .then((res) => {
+        if (res.status === 200) {
+          this.userPosts = res.data;
+          console.log(this.userPosts);
+          window.scrollTo(0,0);
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    },
+    
     funcLike(btn) {
       var id_button = btn;
       //console.log("button" + btn);
@@ -945,7 +431,7 @@ export default({
     },
 
     togglePlayPause() {
-    var audio = document.getElementById("audio");
+      var audio = document.getElementById("audio");
       var playpause = document.getElementById("play");
       if (audio.paused || audio.ended) {
         playpause.title = "Pause";
@@ -954,6 +440,33 @@ export default({
         playpause.title = "Play";
         audio.pause();
       }
+    },
+
+    updatePost(id){
+      window.location.href = 'http://localhost:8080/post/update/'+id
+    },
+
+    async deletePost(id) {
+      await deletePost(id)
+        .then((res) => {
+          console.log(this.email);
+          if (res.status === 200) {
+            getUserPosts()
+              .then((res) => {
+                if (res.status === 200) {
+                  this.userPosts = res.data;
+                  console.log(this.userPosts);
+                }
+              })
+              .catch((e) => {
+                console.log(e);
+              });
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+          console.log(e.response.status);
+        });
     },
 
     // $(function () {
@@ -970,5 +483,5 @@ export default({
     //   });
     // }),
   },
-})
+};
 </script>

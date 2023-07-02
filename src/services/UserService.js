@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import {refreshTokenIfNeeded} from "@/services/RefreshTokenService"
 
 export async function getAllUsers() {
 
@@ -36,6 +36,7 @@ export async function logOut() {
 }
 
 export async function getUser() {
+    refreshTokenIfNeeded()
     const response = await axios.get('/api/user', {headers: { 'Authorization': 'Bearer ' + localStorage.getItem('accessToken') }} );
     return response;
 }

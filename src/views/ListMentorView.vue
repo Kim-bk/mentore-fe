@@ -1,7 +1,7 @@
 <template>
   <!-- Taskbar header -->
   <!-- Main Header-->
-<header-bar></header-bar>
+  <header-bar></header-bar>
 
   <div
     class="border-0 border-b border-solid border-gray-200"
@@ -14,11 +14,12 @@
             <div class="mt-1 relative rounded-md">
               <label for="search" class="sr-only">Search</label>
               <input
+                @input="handleInputMentorChange"
                 type="text"
                 id="search"
                 name="search"
                 class="form-input py-3 px-4 focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-10 sm:text-sm border-gray-300 rounded-md"
-                placeholder='"Python", "May mặc" hoặc "Thiết kế"...'
+                placeholder="Tìm kiếm mentor..."
                 value=""
               />
               <div
@@ -51,7 +52,6 @@
                 aria-expanded="true"
                 aria-labelledby="listbox-label"
               >
-                <span class="truncate"> Số năm kinh nghiệm </span>
                 <span
                   class="absolute inset-y-0 right-0 flex items-center pr-3 pt-1 pointer-events-none"
                 >
@@ -81,312 +81,101 @@
         class="lg:grid grid-cols-2 justify-items-stretch lg:space-x-4 mobile-filter"
       >
         <div class="sm:flex sm:space-x-4 mt-2 space-y-4 sm:space-y-0">
-          <div class="relative" x-data="{ category: false, orderby: '' }">
-            <div>
-              <button
-                type="button"
-                class="bg-white border border-solid border-gray-300 cursor-pointer transition-all duration-100 relative w-full hover:bg-gray-100 rounded-full has-text-blue pl-5 pr-10 py-3 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                aria-haspopup="listbox"
-                aria-expanded="true"
-                aria-labelledby="listbox-label"
-                x-bind:class="orderby !== '' ? 'border-gray-600' : ''"
-              >
-                <span class="truncate" x-text="orderby || 'Lĩnh vực'">
-                  Lĩnh vực
-                </span>
-                <span
-                  class="absolute inset-y-0 right-0 flex items-center pr-3 ointer-events-none"
-                >
-                  <svg
-                    class="w-4 h-4 text-mc-green"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M19 9l-7 7-7-7"
-                    ></path>
-                  </svg>
-                </span>
-              </button>
-              <input type="hidden" name="tagsearch" value="" id="category" />
-            </div>
-          </div>
-          <div class="relative" x-data="{ skills: false, selections: [] }">
-            <div>
-              <button
-                type="button"
-                class="bg-white border border-solid border-gray-300 cursor-pointer transition-all duration-100 relative w-full hover:bg-gray-100 rounded-full has-text-blue pl-5 pr-10 py-3 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                aria-haspopup="listbox"
-                aria-expanded="true"
-                x-bind:class="selections.length === 0 ? '' : 'border-gray-600'"
-              >
-                <span class="truncate" x-show="selections.length === 0">
-                  Kỹ năng
-                </span>
-                <span
-                  class="truncate"
-                  x-show="selections.length !== 0"
-                  style="display: none"
-                >
-                  <span x-text="selections.length"></span> skill<span
-                    class="truncate"
-                    x-show="selections.length !== 1"
-                    style="display: none"
-                    >s</span
-                  >
-                </span>
-                <span
-                  class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none"
-                >
-                  <svg
-                    class="w-4 h-4 text-mc-green"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M19 9l-7 7-7-7"
-                    ></path>
-                  </svg>
-                </span>
-              </button>
-            </div>
-          </div>
-          <div class="dropdown">
-            <button
-              type="button"
-              onclick="myFunction()"
-              class="bg-white border border-solid border-gray-300 cursor-pointer transition-all duration-100 relative w-full hover:bg-gray-100 rounded-full has-text-blue pl-5 pr-10 py-3 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dropbtn"
-              aria-haspopup="listbox"
-              aria-expanded="true"
-              x-bind:class="selections.length === 0 ? '' : 'border-gray-600'"
+          <div>
+            <label style="text-align: ; font-weight: bold; padding-left: 30px"
+              >Chọn lĩnh vực:</label
             >
-              <span class="truncate" x-show="selections.length === 0">
-                Địa điểm
-              </span>
-              <span
-                class="truncate"
-                x-show="selections.length !== 0"
-                style="display: none"
-              >
-                <span x-text="selections.length"></span> service<span
-                  class="truncate"
-                  x-show="selections.length !== 1"
-                  style="display: none"
-                  >s</span
-                >
-              </span>
-              <span
-                class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none"
-              >
-                <svg
-                  class="w-4 h-4 text-mc-green"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"
-                  ></path>
-                </svg>
-              </span>
-            </button>
-            <!--  -->
-            <!-- <button type="button" onclick="myFunction()" class="dropbtn">Dropdown</button> -->
-            <div id="myDropdown" class="dropdown-content">
-              <a href="mentor_hcm.html">TP Hồ Chí Minh</a>
-              <a href="mentor_danang.html">Đà Nẵng</a>
-              <a href="mentor_haiphong.html">Hải Phòng</a>
-              <a href="mentor_hanoi.html">Hà Nội</a>
-            </div>
+            <select
+              id="fieldSelect"
+              class="dropdown bg-white border border-solid border-gray-300 cursor-pointer transition-all duration-100 relative w-full hover:bg-gray-100 rounded-full has-text-blue pl-5 pr-10 py-3 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dropbtn"
+              name="duration"
+              v-model="field"
+              @change="handleSelectFieldChange"
+            >
+              <option value="none">Không</option>
+              <option v-for="field in fields" :key="field.id" :value="field.type">
+                {{ field.type }}
+              </option>
+            </select>
           </div>
-          <!--  -->
 
-          <div id="price_select" x-data="{ price: false }">
-            <div class="relative">
-              <div>
-                <button
-                  class="bg-white border border-solid border-gray-300 cursor-pointer transition-all duration-100 relative w-full hover:bg-gray-100 rounded-full has-text-blue pl-5 pr-10 py-3 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  aria-haspopup="listbox"
-                  aria-expanded="true"
-                  aria-labelledby="listbox-label"
-                >
-                  <span class="truncate"> Giá </span>
-                  <span
-                    class="absolute inset-y-0 right-0 flex items-center pr-3 ointer-events-none"
-                  >
-                    <svg
-                      class="w-4 h-4 text-mc-green"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M19 9l-7 7-7-7"
-                      ></path>
-                    </svg>
-                  </span>
-                </button>
-                <div
-                  x-show="price"
-                  style="display: none"
-                  x-transition:leave="transition ease-in duration-100 transform"
-                  x-transition:leave-start="opacity-100"
-                  x-transition:leave-end="opacity-0"
-                  class="absolute z-10 mt-1 pt-12 px-4 bg-white shadow-lg max-h-80 w-full sm:w-80 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
-                  tabindex="-1"
-                >
-                  <div class="flex justify-center items-center">
-                    <div class="w-full">
-                      <div
-                        id="bins"
-                        class="w-full inline-block h-32 grid pr-4 items-end"
-                        style="
-                          grid-template-columns: repeat(
-                            8,
-                            minmax(0, 1fr)
-                          ) !important;
-                        "
-                      >
-                        <div
-                          id="bin-0"
-                          class="bins bg-mc-shade-light bg-mc-shade-darkest w-auto mx-1"
-                          style="height: 49%"
-                        ></div>
-                        <div
-                          id="bin-1"
-                          class="bins bg-mc-shade-light bg-mc-shade-darkest w-auto mx-1"
-                          style="height: 100%"
-                        ></div>
-                        <div
-                          id="bin-2"
-                          class="bins bg-mc-shade-light bg-mc-shade-darkest w-auto mx-1"
-                          style="height: 9%"
-                        ></div>
-                        <div
-                          id="bin-3"
-                          class="bins bg-mc-shade-light bg-mc-shade-darkest w-auto mx-1"
-                          style="height: 2%"
-                        ></div>
-                        <div
-                          id="bin-4"
-                          class="bins bg-mc-shade-light bg-mc-shade-darkest w-auto mx-1"
-                          style="height: 1%"
-                        ></div>
-                        <div
-                          id="bin-5"
-                          class="bins bg-mc-shade-light bg-mc-shade-darkest w-auto mx-1"
-                          style="height: 0%"
-                        ></div>
-                        <div
-                          id="bin-6"
-                          class="bins bg-mc-shade-light bg-mc-shade-darkest w-auto mx-1"
-                          style="height: 0%"
-                        ></div>
-                        <div
-                          id="bin-7"
-                          class="bins bg-mc-shade-light bg-mc-shade-darkest w-auto mx-1"
-                          style="height: 1%"
-                        ></div>
-                      </div>
-                      <div
-                        x-data="range()"
-                        x-init="mintrigger(); maxtrigger()"
-                        class="relative max-w-xl w-full"
-                      >
-                        <div class="mr-4">
-                          <input
-                            type="range"
-                            step="10"
-                            x-bind:min="min"
-                            x-bind:max="max"
-                            x-on:input="mintrigger"
-                            x-model="minprice"
-                            class="absolute pointer-events-none appearance-none z-30 h-2 w-full opacity-0 cursor-pointer form-slider"
-                          />
-                          <input
-                            type="range"
-                            step="10"
-                            x-bind:min="min"
-                            x-bind:max="max"
-                            x-on:input="maxtrigger"
-                            x-model="maxprice"
-                            class="absolute pointer-events-none appearance-none z-30 h-2 w-full opacity-0 cursor-pointer form-slider"
-                          />
-                          <div class="relative z-20 h-2">
-                            <div
-                              class="absolute z-20 left-0 right-0 bottom-0 top-0 rounded-md bg-gray-200"
-                            ></div>
-                            <div
-                              class="absolute z-30 top-0 bottom-0 rounded-md bg-green-300"
-                              x-bind:style="'right:'+maxthumb+'%; left:'+minthumb+'%'"
-                            ></div>
-                            <div
-                              class="absolute z-40 w-6 h-6 top-0 bg-green-300 rounded-full -mt-2 -ml-1"
-                              x-bind:style="'left: '+minthumb+'%'"
-                            ></div>
-                            <div
-                              class="absolute z-40 w-6 h-6 top-0 bg-green-300 rounded-full -mt-2 -mr-5"
-                              x-bind:style="'right: '+maxthumb+'%'"
-                            ></div>
-                          </div>
-                        </div>
-                        <div
-                          class="flex justify-between items-center py-5"
-                          id="pricingrange"
-                        >
-                          <div>
-                            <input
-                              type="number"
-                              name="price__gt"
-                              min="0"
-                              x-bind:max="max"
-                              x-on:input="mintrigger"
-                              x-model="minprice"
-                              class="form-input px-3 py-2 border border-gray-200 rounded w-24 text-center"
-                            />
-                          </div>
-                          <div>
-                            <input
-                              type="number"
-                              name="price__lt"
-                              min="0"
-                              x-bind:max="max"
-                              x-on:input="maxtrigger"
-                              x-model="maxprice"
-                              class="form-input px-3 mr-2 py-2 border border-gray-200 rounded w-24 text-center"
-                            />
-                          </div>
-                        </div>
-                        <span
-                          class="block text-sm pt-2 pb-4 italic text-center w-full"
-                        >
-                          All prices in USD
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div>
+            <label style="text-align: ; font-weight: bold; padding-left: 30px"
+              >Chọn địa điểm:</label
+            >
+            <select
+              id="locationSelect"
+              class="dropdown bg-white border border-solid border-gray-300 cursor-pointer transition-all duration-100 relative w-full hover:bg-gray-100 rounded-full has-text-blue pl-5 pr-10 py-3 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dropbtn"
+              name="duration"
+              style="width: 100px"
+              v-model="location"
+              @change="handleSelectLocationChange()"
+            >
+              <option value="none">Không</option>
+              <option value="An Giang">An Giang</option>
+              <option value="Bắc Giang">Bắc Giang</option>
+              <option value="Bắc Kạn">Bắc Kạn</option>
+              <option value="Bạc Liêu">Bạc Liêu</option>
+              <option value="Bắc Ninh">Bắc Ninh</option>
+              <option value="Bến Tre">Bến Tre</option>
+              <option value="Bình Định">Bình Định</option>
+              <option value="Bình Dương">Bình Dương</option>
+              <option value="Bình Phước">Bình Phước</option>
+              <option value="Bình Thuận">Bình Thuận</option>
+              <option value="Cà Mau">Cà Mau</option>
+              <option value="Cao Bằng">Cao Bằng</option>
+              <option value="Đà Nẵng">Đà Nẵng</option>
+              <option value="Đắk Lắk">Đắk Lắk</option>
+              <option value="Đắk Nông">Đắk Nông</option>
+              <option value="Điện Biên">Điện Biên</option>
+              <option value="Đồng Nai">Đồng Nai</option>
+              <option value="Đồng Tháp">Đồng Tháp</option>
+              <option value="Gia Lai">Gia Lai</option>
+              <option value="Hà Giang">Hà Giang</option>
+              <option value="Hà Nam">Hà Nam</option>
+              <option value="Hà Nội">Hà Nội</option>
+              <option value="Hà Tĩnh">Hà Tĩnh</option>
+              <option value="Hải Dương">Hải Dương</option>
+              <option value="Hải Phòng">Hải Phòng</option>
+              <option value="Hậu Giang">Hậu Giang</option>
+              <option value="Hòa Bình">Hòa Bình</option>
+              <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+              <option value="Hưng Yên">Hưng Yên</option>
+              <option value="Khánh Hòa">Khánh Hòa</option>
+              <option value="Kiên Giang">Kiên Giang</option>
+              <option value="Kon Tum">Kon Tum</option>
+              <option value="Lai Châu">Lai Châu</option>
+              <option value="Lâm Đồng">Lâm Đồng</option>
+              <option value="Lạng Sơn">Lạng Sơn</option>
+              <option value="Lào Cai">Lào Cai</option>
+              <option value="Long An">Long An</option>
+              <option value="Nam Định">Nam Định</option>
+              <option value="Nghệ An">Nghệ An</option>
+              <option value="Ninh Bình">Ninh Bình</option>
+              <option value="Ninh Thuận">Ninh Thuận</option>
+              <option value="Phú Thọ">Phú Thọ</option>
+              <option value="Phú Yên">Phú Yên</option>
+              <option value="Quảng Bình">Quảng Bình</option>
+              <option value="Quảng Nam">Quảng Nam</option>
+              <option value="Quảng Ngãi">Quảng Ngãi</option>
+              <option value="Quảng Ninh">Quảng Ninh</option>
+              <option value="Quảng Trị">Quảng Trị</option>
+              <option value="Sóc Trăng">Sóc Trăng</option>
+              <option value="Sơn La">Sơn La</option>
+              <option value="Tây Ninh">Tây Ninh</option>
+              <option value="Thái Bình">Thái Bình</option>
+              <option value="Thái Nguyên">Thái Nguyên</option>
+              <option value="Thanh Hóa">Thanh Hóa</option>
+              <option value="Thừa Thiên Huế">Thừa Thiên Huế</option>
+              <option value="Tiền Giang">Tiền Giang</option>
+              <option value="Trà Vinh">Trà Vinh</option>
+              <option value="Tuyên Quang">Tuyên Quang</option>
+              <option value="Vĩnh Long">Vĩnh Long</option>
+              <option value="Vĩnh Phúc">Vĩnh Phúc</option>
+              <option value="Yên Bái">Yên Bái</option>
+            </select>
           </div>
+
           <div
             class="relative"
             x-data="{ more: false }"
@@ -397,15 +186,6 @@
       <div class="justify-self-end">
         <div class="relative" x-data="{ type: false, typetext: '' }">
           <div>
-            <!-- <button type="button" @click="type = !type" class="inline w-auto lg:w-full bg-white border border-solid has-border-green cursor-pointer transition-all duration-100 relative hover:bg-gray-100 rounded-full has-text-green pl-5 pr-10 py-2 mt-3 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" aria-haspopup="listbox" aria-expanded="true" aria-labelledby="listbox-label">
-    <span class="truncate" x-text="typetext || 'Mentors'">
-    Mentors
-    </span>
-    <span class="absolute inset-y-0 right-0 flex items-center pr-3 ointer-events-none">
-
-    <svg class="w-4 h-4 text-mc-green" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-    </span>
-    </button> -->
             <ul
               x-show="type"
               style="display: none"
@@ -466,736 +246,93 @@
   </a>
   <main class="max-w-screen-xl mx-auto">
     <div id="search-results" class="my-16 px-4">
-      <!-- <div
-        class="relative box px-7 py-8 transition-all duration-150 mb-12 max-w-screen-lg mx-auto"
-        style="margin-bottom: 4rem"
-      > -->
-        <!-- <div
-          class="absolute top-0 -m-4 right-12 block border-2 border-solid border-gray-200 rounded-2xl bg-white has-text-blue font-bold px-2 py-1 text-sm"
-        >
-          Hà Nội
-        </div>
-        <div class="sm:grid grid-cols-24 sm:space-x-8">
-          <div class="col-span-7 md:col-span-5 relative">
-            <img
-              href="/mentor/LilyMalykhina/"
-              title="Lily Malykhina"
-              class="relative w-full h-72 bg-center bg-cover inline-block rounded-lg overflow-hidden mb-20"
-              src="../assets/images/avatar/gogofood.png"
-            />
-          </div> -->
-          <!-- <div
-            class="col-span-full col-start-8 md:col-start-6 lg:col-span-13 border-0 lg:border-r border-solid border-gray-200 pr-5"
-            style="position: relative"
-          > -->
-            <!-- <div class="relative h-full pb-16">
-              <div class="sm:grid grid-cols-3">
-                <div class="col-span-2">
-                  <a href="/mentor/LilyMalykhina/" title="Lily Malykhina">
-                    <h3 class="title text-2xl has-text-blue font-bold">
-                      NGUYỄN THÀNH NAM
-                    </h3>
-                  </a>
-                </div>
-                <div class="sm:text-right my-4 sm:my-0">
-                  <div
-                    class="whitespace-nowrap inline cursor-default py-2 px-4 rounded-full text-sm cursor-pointer font-bold bg-mc-green text-white hover:text-white"
-                  >
-                    <i class="fa fa-star"></i>&nbsp;5 năm
-                  </div>
-                </div>
-              </div>
-              <span class="has-text-blue text-base mt-2 inline-block"
-                >CEO <span class="font-bold">Gogo food Vietnam</span></span
-              ><br />
-              <div class="mt-2">
-                <div class="star-rating-display" data-rating="5.0">
-                  <span class="is-vishidden">5.0 stars</span>
-                </div>
-                <span class="rating-display"
-                  ><b class="has-text-blue">5.0</b>&nbsp;<span
-                    class="has-text-blue"
-                    >(2 reviews)</span
-                  ></span
-                >
-              </div>
-              <hr />
-              <div
-                class="break-word mt-4 mb-6 max-w-screen-md text-sm leading-6"
-                style="top: -15px; position: relative"
-              >
-                Tôi đã có kinh nghiệm nhiều năm trong việc điều phối và vận hành
-                các tập đoàn lớn, giúp công ty trở nên lớn mạnh với nhiều dự án
-                trọng điểm được vận hành và quản lý bởi đội ngũ do tôi quản lý.
-                Đối với tôi, một tiến trình được đầu tư chất lượng sẽ tạo nên
-                một kết quả hoàn hảo.
-              </div>
-              <div class="tags">
-                <a
-                  href="?tagsearch=UX%20%26%20Design"
-                  class="tag-sm mb-2 mr-2 font-semibold"
-                  >Product &amp; Marketing</a
-                >
-                <a href="/filter/design/" class="tag-sm mb-2 mr-2 font-semibold"
-                  >Quản lý</a
-                >
-                <a href="/filter/ux/" class="tag-sm mb-2 mr-2 font-semibold"
-                  >Tài chính</a
-                >
-              </div>
-              <div
-                class="md:grid grid-cols-2 mt-8 space-x-4 absolute bottom-0 w-full"
-              >
-                <div>
-                  <a
-                    href="/mentor/LilyMalykhina/?preselect=standard"
-                    class="w-full text-center blue-btn"
-                    >Xem Profile</a
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="hidden lg:block lg:col-span-6">
-            <div class="font-semibold has-text-blue text-sm">
-              Bạn sẽ nhận được gì ?
-            </div>
-            <div
-              class="my-5 text-gray-600 text-sm w-full divide-y divide-x-0 divide-gray-200 divide-solid border-solid border-0 border-t border-b border-gray-200"
-            >
-              <div class="w-full py-3">
-                Câu chuyện trong nghề của một CEO ngành kinh doanh thực phẩm
-              </div>
-              <div class="w-full py-3">
-                Kinh nghiệm trong việc quản lý dự án
-              </div>
-              <div class="w-full py-3">
-                Cách phân bổ nguồn lực hợp lý cho dự án
-              </div>
-            </div>
-            <a
-              href="/mentor/LilyMalykhina/"
-              class="w-full block text-right uppercase has-text-blue font-semibold text-xs"
-            >
-              Xem thêm...
-            </a>
-          </div>
-        </div>
-      </div>
-      <div
-        class="relative box px-7 py-8 transition-all duration-150 mb-12 max-w-screen-lg mx-auto"
-        style="margin-bottom: 4rem"
-      >
-        <div
-          class="absolute top-0 -m-4 right-12 block border-2 border-solid border-gray-200 rounded-2xl bg-white has-text-blue font-bold px-2 py-1 text-sm"
-        >
-          Đà Nẵng
-        </div>
-        <div class="sm:grid grid-cols-24 sm:space-x-8">
-          <div class="col-span-7 md:col-span-5 relative">
-            <img
-              href="/mentor/AdamJohannsson/"
-              title="Adam Johannsson"
-              class="relative w-full h-72 bg-center bg-cover inline-block rounded-lg overflow-hidden mb-20"
-               src="../assets/images/avatar/grandp.jpg"
-            />
-              
-          </div>
-          <div
-            class="col-span-full col-start-8 md:col-start-6 lg:col-span-13 border-0 lg:border-r border-solid border-gray-200 pr-5"
-            style="position: relative"
-          >
-            <div class="relative h-full pb-16">
-              <div class="sm:grid grid-cols-3">
-                <div class="col-span-2">
-                  <a href="/mentor/AdamJohannsson/" title="Adam Johannsson">
-                    <h3 class="title text-2xl has-text-blue font-bold">
-                      TRƯƠNG QUỐC ANH
-                    </h3>
-                  </a>
-                </div>
-                <div class="sm:text-right my-4 sm:my-0">
-                  <div
-                    class="whitespace-nowrap inline cursor-default py-2 px-4 rounded-full text-sm cursor-pointer font-bold bg-mc-green text-white hover:text-white"
-                  >
-                    <i class="fa fa-star"></i>&nbsp;3 năm
-                  </div>
-                </div>
-                <div class="sm:text-right my-4 sm:my-0"></div>
-              </div>
-              <span class="has-text-blue text-base mt-2 inline-block"
-                >Founder
-                <span class="font-bold">chuỗi cà phê Grand.P</span></span
-              ><br />
-              <div class="mt-2">
-                <div class="star-rating-display" data-rating="5.0">
-                  <span class="is-vishidden">5.0 stars</span>
-                </div>
-                <span class="rating-display"
-                  ><b class="has-text-blue">5.0</b>&nbsp;<span
-                    class="has-text-blue"
-                    >(1 review)</span
-                  ></span
-                >
-              </div>
-              <hr />
-              <div
-                class="break-word mt-4 mb-6 max-w-screen-md text-sm leading-6"
-                style="top: -15px; position: relative"
-              >
-                Để có được thành công hôm nay, tôi đã phải trải nghiệm rất nhiều
-                vị trí trong ngành F&B để đúc kết được những bài học quý giá.
-                Nếu bạn đang tìm kiếm một người mentor có thể giúp bạn tìm hiểu
-                và phát triển trong giai đoạn đầu sự nghiệp, tôi sẽ không ngần
-                ngại chia sẻ và cố vấn cho bạn.
-              </div>
-              <div class="tags">
-                <a
-                  href="?tagsearch=Product%20%26%20Marketing"
-                  class="tag-sm mb-2 mr-2 font-semibold"
-                  >F&B</a
-                >
-                <a
-                  href="/filter/productmanagement/"
-                  class="tag-sm mb-2 mr-2 font-semibold"
-                  >Pha chế</a
-                >
-                <a
-                  href="/filter/fintech/"
-                  class="tag-sm mb-2 mr-2 font-semibold"
-                  >Tài chính</a
-                >
-                <a
-                  href="/filter/strategy/"
-                  class="tag-sm mb-2 mr-2 font-semibold"
-                  >Quản lý
-                </a>
-              </div>
-              <div
-                class="md:grid grid-cols-2 mt-8 space-x-4 absolute bottom-0 w-full"
-              >
-                <div>
-                  <a
-                    href="
-                                /mentor/AdamJohannsson/?preselect=standard"
-                    class="w-full text-center blue-btn"
-                    >Xem Profile</a
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="hidden lg:block lg:col-span-6">
-            <div class="font-semibold has-text-blue text-sm">
-              Bạn sẽ nhận được gì ?
-            </div>
-            <div
-              class="my-5 text-gray-600 text-sm w-full divide-y divide-x-0 divide-gray-200 divide-solid border-solid border-0 border-t border-b border-gray-200"
-            >
-              <div class="w-full py-3">
-                Chia sẻ kinh nghiệm làm việc trong ngành F&B
-              </div>
-              <div class="w-full py-3">
-                Tâm sự câu chuyện khởi nghiệp: kinh doanh quán cafe
-              </div>
-              <div class="w-full py-3">
-                Những điều quan trọng cần chuẩn bị trước khi bắt tay vào kinh
-                doanh trong ngành F&B
-              </div>
-            </div>
-            <a
-              href="/mentor/AdamJohannsson/"
-              class="w-full block text-right uppercase has-text-blue font-semibold text-xs"
-            >
-              Xem thêm...
-            </a>
-          </div>
-        </div>
-      </div> -->
-
-
       <!-- test loading data -->
       <div v-for="mentor in mentors" :key="mentor.id">
         <div
-        class="relative box px-7 py-8 transition-all duration-150 mb-12 max-w-screen-lg mx-auto"
-        style="margin-bottom: 4rem">
-        <div
-          class="absolute top-0 -m-4 right-12 block border-2 border-solid border-gray-200 rounded-2xl bg-white has-text-blue font-bold px-2 py-1 text-sm"
+          class="relative box px-7 py-8 transition-all duration-150 mb-12 max-w-screen-lg mx-auto"
+          style="margin-bottom: 4rem"
         >
-         {{mentor.locationName}}
-        </div>
-        <div class="sm:grid grid-cols-24 sm:space-x-8">
-          <div class="col-span-7 md:col-span-5 relative">
-            <img
-              class="relative w-full h-72 bg-center bg-cover inline-block rounded-lg overflow-hidden mb-20"
-              :src= "mentor.avatar"
-            />
-          </div>
           <div
-            class="col-span-full col-start-8 md:col-start-6 lg:col-span-13 border-0 lg:border-r border-solid border-gray-200 pr-5"
-            style="position: relative"
+            class="absolute top-0 -m-4 right-12 block border-2 border-solid border-gray-200 rounded-2xl bg-white has-text-blue font-bold px-2 py-1 text-sm"
           >
-            <div class="relative h-full pb-16">
-              <div class="sm:grid grid-cols-3">
-                <div class="col-span-2">
-                  <a href="https:localhost:8080/mentor/{{mentor.id}}" title={{mentor.name}}>
-                    <h3 class="title text-2xl has-text-blue font-bold">
-                      {{mentor.name}}
-                    </h3>
-                  </a>
+            {{ mentor.locationName }}
+          </div>
+          <div class="sm:grid grid-cols-24 sm:space-x-8">
+            <div class="col-span-7 md:col-span-5 relative">
+              <img
+                class="relative w-full h-72 bg-center bg-cover inline-block rounded-lg overflow-hidden mb-20"
+                :src="mentor.avatar"
+              />
+            </div>
+            <div
+              class="col-span-full col-start-8 md:col-start-6 lg:col-span-13 border-0 lg:border-r border-solid border-gray-200 pr-5"
+              style="position: relative"
+            >
+              <div class="relative h-full pb-16">
+                <div class="sm:grid grid-cols-3">
+                  <div class="col-span-2">
+                    <a
+                      href="https:localhost:8080/mentor/{{mentor.id}}"
+                      title="{{mentor.name}}"
+                    >
+                      <h3 class="title text-2xl has-text-blue font-bold">
+                        {{ mentor.name }}
+                      </h3>
+                    </a>
+                  </div>
+
+                  <div class="sm:text-right my-4 sm:my-0"></div>
                 </div>
-                <div class="sm:text-right my-4 sm:my-0">
-                  <div
-                    class="whitespace-nowrap inline cursor-default py-2 px-4 rounded-full text-sm cursor-pointer font-bold bg-mc-green text-white hover:text-white"
+                <span class="has-text-blue text-base mt-2 inline-block">{{
+                  mentor.currentJob
+                }}</span
+                ><br />
+                <div class="mt-2">
+                  <div class="star-rating-display" data-rating="5.0">
+                    <span class="is-vishidden">4.5 stars</span>
+                  </div>
+                  <span class="rating-display"
+                    ><b class="has-text-blue">5.0</b>&nbsp;<span
+                      class="has-text-blue"
+                      >(8 reviews)</span
+                    ></span
                   >
-                    <i class="fa fa-star"></i>&nbsp;2,5 năm
+                </div>
+                <hr />
+                <div
+                  class="break-word mt-4 mb-6 max-w-screen-md text-sm leading-6"
+                  style="top: -15px; position: relative"
+                >
+                  {{ mentor.description }}
+                </div>
+                <div
+                  class="md:grid grid-cols-2 mt-8 space-x-4 absolute bottom-0 w-full"
+                >
+                  <div>
+                    <a
+                      :href="'http://localhost:8080/view-mentor/' + mentor.id"
+                      class="w-full text-center blue-btn"
+                      >Xem Profile</a
+                    >
                   </div>
                 </div>
-                <div class="sm:text-right my-4 sm:my-0"></div>
               </div>
-              <span class="has-text-blue text-base mt-2 inline-block"
-                >{{ mentor.currentJob }}</span
-              ><br />
-              <div class="mt-2">
-                <div class="star-rating-display" data-rating="5.0">
-                  <span class="is-vishidden">4.5 stars</span>
-                </div>
-                <span class="rating-display"
-                  ><b class="has-text-blue">5.0</b>&nbsp;<span
-                    class="has-text-blue"
-                    >(8 reviews)</span
-                  ></span
-                >
+            </div>
+            <div class="hidden lg:block lg:col-span-6">
+              <div class="font-semibold has-text-blue text-sm">
+                Lĩnh vực quan tâm
               </div>
-              <hr />
               <div
-                class="break-word mt-4 mb-6 max-w-screen-md text-sm leading-6"
-                style="top: -15px; position: relative"
+                class="my-5 text-gray-600 text-sm w-full divide-y divide-x-0 divide-gray-200 divide-solid border-solid border-0 border-t border-b border-gray-200"
               >
-                {{mentor.description}}
-              </div>
-              <!-- <div class="tags">
-                <a
-                  href="?tagsearch=Engineering%20%26%20Data"
-                  class="tag-sm mb-2 mr-2 font-semibold"
-                  >IT</a
-                >
-                <a
-                  href="/filter/cybersecurity/"
-                  class="tag-sm mb-2 mr-2 font-semibold"
-                  >Developer</a
-                >
-                <a
-                  href="/filter/vulnerabilitymanagement/"
-                  class="tag-sm mb-2 mr-2 font-semibold"
-                  >Lập trình</a
-                >
-                <a
-                  href="/filter/threathunting/"
-                  class="tag-sm mb-2 mr-2 font-semibold"
-                  >Front-end</a
-                >
-                <a
-                  href="/filter/threathunting/"
-                  class="tag-sm mb-2 mr-2 font-semibold"
-                  >Back-end</a
-                >
-              </div> -->
-              <div
-                class="md:grid grid-cols-2 mt-8 space-x-4 absolute bottom-0 w-full"
-              >
-                <div>
-                  <a
-                    :href= "'http://localhost:8080/profile-mentor/'+mentor.id"
-                    class="w-full text-center blue-btn"
-                    >Xem Profile</a
-                  >
+                <div class="w-full py-3">
+                  {{ mentor.fields }}
                 </div>
               </div>
             </div>
-          </div>
-          <div class="hidden lg:block lg:col-span-6">
-            <div class="font-semibold has-text-blue text-sm">
-              Bạn nhận được gì?
-            </div>
-            <div
-              class="my-5 text-gray-600 text-sm w-full divide-y divide-x-0 divide-gray-200 divide-solid border-solid border-0 border-t border-b border-gray-200"
-            >
-              <div class="w-full py-3">
-                Chia sẻ câu chuyện trong ngành thiết kế giao diện
-              </div>
-              <div class="w-full py-3">
-                Tips chọn đúng lĩnh vực trong ngành IT giữa vô vàn lựa chọn
-              </div>
-              <div class="w-full py-3">
-                Những điều quan trọng cần chuẩn bị trước khi bắt tay vào ngành
-                thiết kế
-              </div>
-            </div>
-            <a
-              href="/mentor/jaredcooperband/"
-              class="w-full block text-right uppercase has-text-blue font-semibold text-xs"
-            >
-              Xem thêm...
-            </a>
           </div>
         </div>
       </div>
-      </div>
-
-      <!-- <div
-        class="relative box px-7 py-8 transition-all duration-150 mb-12 max-w-screen-lg mx-auto"
-        style="margin-bottom: 4rem"
-      >
-        <div
-          class="absolute top-0 -m-4 right-12 block border-2 border-solid border-gray-200 rounded-2xl bg-white has-text-blue font-bold px-2 py-1 text-sm"
-        >
-          TP Hồ Chí Minh
-        </div>
-        <div class="sm:grid grid-cols-24 sm:space-x-8">
-          <div class="col-span-7 md:col-span-5 relative">
-            <a
-              href="/mentor/marinakrutchinsky/"
-              title="Marina Krutchinsky"
-              class="relative w-full h-72 bg-center bg-cover inline-block rounded-lg overflow-hidden mb-20"
-              style="
-                background-image: url('@/assets/images/avatar/lacosmetic.jpg');
-              "
-            >
-              <div
-                class="absolute block w-full h-full inset-x-0 bottom-0"
-                style="
-                  background-image: linear-gradient(
-                    to top,
-                    rgba(48, 65, 96, 1),
-                    rgba(48, 65, 96, 0) 60%,
-                    rgba(48, 65, 96, 0)
-                  );
-                "
-              ></div>
-            </a>
-          </div>
-          <div
-            class="col-span-full col-start-8 md:col-start-6 lg:col-span-13 border-0 lg:border-r border-solid border-gray-200 pr-5"
-            style="position: relative"
-          >
-            <div class="relative h-full pb-16">
-              <div class="sm:grid grid-cols-3">
-                <div class="col-span-2">
-                  <a
-                    href="/mentor/marinakrutchinsky/"
-                    title="Marina Krutchinsky"
-                  >
-                    <h3 class="title text-2xl has-text-blue font-bold">
-                      MAI THANH QUỲNH
-                    </h3>
-                  </a>
-                </div>
-                <div class="sm:text-right my-4 sm:my-0">
-                  <a
-                    href="/top/"
-                    target="_blank"
-                    class="whitespace-nowrap py-2 px-4 rounded-full text-sm cursor-pointer font-bold bg-mc-green text-white hover:text-white"
-                    ><i class="fa fa-star"></i>&nbsp;6 năm</a
-                  >
-                </div>
-              </div>
-              <span class="has-text-blue text-base mt-2 inline-block"
-                >Senior Marketing manager
-                <span class="font-bold">tại La cosmetique</span></span
-              ><br />
-              <div class="mt-2">
-                <div class="star-rating-display" data-rating="5.0">
-                  <span class="is-vishidden">5.0 stars</span>
-                </div>
-                <span class="rating-display"
-                  ><b class="has-text-blue">5.0</b>&nbsp;<span
-                    class="has-text-blue"
-                    >(10 reviews)</span
-                  ></span
-                >
-              </div>
-              <hr />
-              <div
-                class="break-word mt-4 mb-6 max-w-screen-md text-sm leading-6"
-                style="top: -15px; position: relative"
-              >
-                Nếu đủ đam mê và nhiệt huyết với ngành Marketing, bạn sẽ nhận
-                được kết quả xứng đáng với công sức và trí tuệ mà bạn bỏ ra. Mọi
-                thứ không đơn giản chỉ vì tiền mà còn là sự phát triển bản thân
-                của một Marketer. Bạn phải tiếp tục học hỏi và cập nhật mọi thứ
-                liên quan đến thị trường. Tôi sẽ rất hoan nghênh nếu bạn sẵn
-                sàng lắng nghe.
-              </div>
-              <div class="tags">
-                <a
-                  href="?tagsearch=UX%20%26%20Design"
-                  class="tag-sm mb-2 mr-2 font-semibold"
-                  >Marketing</a
-                >
-                <a
-                  href="/filter/uxdesign/"
-                  class="tag-sm mb-2 mr-2 font-semibold"
-                  >Quản lý</a
-                >
-                <a
-                  href="/filter/productdesign/"
-                  class="tag-sm mb-2 mr-2 font-semibold"
-                  >Mỹ phẩm</a
-                >
-                <a
-                  href="/filter/uxcareergrowth/"
-                  class="tag-sm mb-2 mr-2 font-semibold"
-                  >Thương hiệu nước ngoài</a
-                >
-              </div>
-              <div
-                class="md:grid grid-cols-2 mt-8 space-x-4 absolute bottom-0 w-full"
-              >
-                <div>
-                  <a
-                    href="
-
-
-
-
-
-
-
-
-
-
-                                /mentor/marinakrutchinsky/?preselect=lite"
-                    class="w-full text-center blue-btn"
-                    >Xem Profile</a
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="hidden lg:block lg:col-span-6">
-            <div class="font-semibold has-text-blue text-sm">
-              Bạn sẽ nhận được gì?
-            </div>
-            <div
-              class="my-5 text-gray-600 text-sm w-full divide-y divide-x-0 divide-gray-200 divide-solid border-solid border-0 border-t border-b border-gray-200"
-            >
-              <div class="w-full py-3">Tâm sự trong ngành Marketing</div>
-              <div class="w-full py-3">
-                Làm sao để một Marketer có thể “giữ lửa”
-              </div>
-
-              <div class="w-full py-3">
-                Cần chuẩn bị gì để bước chân vào ngành
-              </div>
-            </div>
-            <a
-              href="/mentor/marinakrutchinsky/"
-              class="w-full block text-right uppercase has-text-blue font-semibold text-xs"
-            >
-              Xem thêm...
-            </a>
-          </div>
-        </div>
-      </div> -->
-      <!-- <div
-        class="relative box px-7 py-8 transition-all duration-150 mb-12 max-w-screen-lg mx-auto"
-        style="margin-bottom: 4rem"
-      >
-        <div
-          class="absolute top-0 -m-4 right-12 block border-2 border-solid border-gray-200 rounded-2xl bg-white has-text-blue font-bold px-2 py-1 text-sm"
-        >
-          Đà Nẵng
-        </div>
-        <div class="sm:grid grid-cols-24 sm:space-x-8">
-          <div class="col-span-7 md:col-span-5 relative">
-            <a
-              href="/mentor/DominicMonn/"
-              title="Dominic Monn"
-              class="relative w-full h-72 bg-center bg-cover inline-block rounded-lg overflow-hidden mb-20"
-              style="background-image: url('@/assets/images/avatar/vanii.png')"
-            >
-              <div
-                class="absolute block w-full h-full inset-x-0 bottom-0"
-                style="
-                  background-image: linear-gradient(
-                    to top,
-                    rgba(48, 65, 96, 1),
-                    rgba(48, 65, 96, 0) 60%,
-                    rgba(48, 65, 96, 0)
-                  );
-                "
-              ></div>
-            </a>
-          </div>
-          <div
-            class="col-span-full col-start-8 md:col-start-6 lg:col-span-13 border-0 lg:border-r border-solid border-gray-200 pr-5"
-            style="position: relative"
-          >
-            <div class="relative h-full pb-16">
-              <div class="sm:grid grid-cols-3">
-                <div class="col-span-2">
-                  <a href="/mentor/DominicMonn/" title="Dominic Monn">
-                    <h3 class="title text-2xl has-text-blue font-bold">
-                      HUỲNH DIỆU MINH
-                    </h3>
-                  </a>
-                </div>
-                <div class="sm:text-right my-4 sm:my-0">
-                  <a
-                    href="/top/"
-                    target="_blank"
-                    class="whitespace-nowrap py-2 px-4 rounded-full text-sm cursor-pointer font-bold bg-mc-green text-white hover:text-white"
-                    ><i class="fa fa-star"></i>&nbsp;10 năm</a
-                  >
-                </div>
-              </div>
-              <span class="has-text-blue text-base mt-2 inline-block"
-                >Founder tại
-                <span class="font-bold">tiệm bánh Vanii</span></span
-              ><br />
-              <div class="mt-2">
-                <div class="star-rating-display" data-rating="5.0">
-                  <span class="is-vishidden">5.0 stars</span>
-                </div>
-                <span class="rating-display"
-                  ><b class="has-text-blue">5.0</b>&nbsp;<span
-                    class="has-text-blue"
-                    >(30 reviews)</span
-                  ></span
-                >
-              </div>
-              <hr />
-              <div
-                class="break-word mt-4 mb-6 max-w-screen-md text-sm leading-6"
-                style="top: -15px; position: relative"
-              >
-                Nếu bạn thực sự tìm thấy được đam mê thì mỗi ngày làm việc trôi
-                qua đều là những giờ phút đáng quý. Tôi may mắn khi đã tìm ra
-                đam mê và gắn bó công việc mình yêu thích trong suốt một khoảng
-                thời gian dài. Làm bánh và kinh doanh chúng thực ra không dễ,
-                nhưng nếu muốn tìm hiểu kĩ hơn, hãy liên lạc với Vanii và tôi sẽ
-                là người dẫn dắt các bạn
-              </div>
-              <div class="tags">
-                <a
-                  href="?tagsearch=Product%20%26%20Marketing"
-                  class="tag-sm mb-2 mr-2 font-semibold"
-                  >F&amp;B</a
-                >
-                <a
-                  href="/filter/product/"
-                  class="tag-sm mb-2 mr-2 font-semibold"
-                  >Làm bánh</a
-                >
-                <a
-                  href="/filter/marketplaces/"
-                  class="tag-sm mb-2 mr-2 font-semibold"
-                  >Kinh doanh</a
-                >
-                <a
-                  href="/filter/founder/"
-                  class="tag-sm mb-2 mr-2 font-semibold"
-                  >Quản lý</a
-                >
-              </div>
-              <div
-                class="md:grid grid-cols-2 mt-8 space-x-4 absolute bottom-0 w-full"
-              >
-                <div>
-                  <a
-                    href="
-
-
-
-
-
-
-
-
-
-
-                                /mentor/DominicMonn/?preselect=lite"
-                    class="w-full text-center blue-btn"
-                    >Xem Profile</a
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="hidden lg:block lg:col-span-6">
-            <div class="font-semibold has-text-blue text-sm">
-              Bạn sẽ nhận được gì?
-            </div>
-            <div
-              class="my-5 text-gray-600 text-sm w-full divide-y divide-x-0 divide-gray-200 divide-solid border-solid border-0 border-t border-b border-gray-200"
-            >
-              <div class="w-full py-3">
-                Hiểu đúng về làm bánh và kinh doanh hàng bánh
-              </div>
-              <div class="w-full py-3">Cách vận hành kinh doanh tiệm bánh</div>
-              <div class="w-full py-3">Một ngày của một thợ làm bánh</div>
-            </div>
-            <a
-              href="/mentor/DominicMonn/"
-              class="w-full block text-right uppercase has-text-blue font-semibold text-xs"
-            >
-              Xem thêm...
-            </a>
-          </div>
-        </div>
-      </div> -->
-
-      <!-- <nav
-        class="border-t border-gray-200 px-4 flex items-center justify-between sm:px-0 mt-8 max-w-screen-lg mx-auto"
-      >
-        <div class="-mt-px w-0 flex-1 flex"></div>
-        <div class="hidden md:-mt-px md:flex">
-          <a
-            class="border-0 border-solid border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium border-indigo-500 text-indigo-600"
-            aria-label="Page 1"
-            aria-current="page"
-            href="?search=&amp;sort=&amp;tagsearch=&amp;price__gt=0&amp;price__lt=800&amp;tz=&amp;type=&amp;page=1"
-            >1</a
-          >
-          <a
-            class="border-0 border-solid border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-            aria-label="Page 2"
-            aria-current="page"
-            href="?search=&amp;sort=&amp;tagsearch=&amp;price__gt=0&amp;price__lt=800&amp;tz=&amp;type=&amp;page=2"
-            >2</a
-          >
-          <a
-            class="border-0 border-solid border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-            aria-label="Page 3"
-            aria-current="page"
-            href="?search=&amp;sort=&amp;tagsearch=&amp;price__gt=0&amp;price__lt=800&amp;tz=&amp;type=&amp;page=3"
-            >3</a
-          >
-        </div>
-        <div class="-mt-px w-0 flex-1 flex justify-end">
-          <a
-            href="?search=&amp;sort=&amp;tagsearch=&amp;price__gt=0&amp;price__lt=800&amp;tz=&amp;type=&amp;page=2"
-            class="border-t-2 border-transparent pt-4 pl-1 inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300"
-          >
-            Tiếp theo
-
-            <svg
-              class="ml-3 h-5 w-5 text-gray-400"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                clip-rule="evenodd"
-              />
-            </svg>
-          </a>
-        </div>
-      </nav> -->
     </div>
   </main>
 </template>
@@ -1260,29 +397,80 @@
 </style>
 
 <script>
-import HeaderBar from '@/components/HeaderBar.vue';
-import {getMentors} from '../services/MentorService.js';
-export default({
-	components :{
-		HeaderBar: HeaderBar
-	},
-  data(){
-		return{
-          mentors:[],
-		}
-	},
+import HeaderBar from "@/components/HeaderBar.vue";
+import { getMentors } from "../services/MentorService.js";
+import { getFields } from "@/services/FieldService";
+
+export default {
+  components: {
+    HeaderBar: HeaderBar,
+  },
+  data() {
+    return {
+      mentors: [],
+      findListMentors: [],
+    };
+  },
   mounted() {
-    getMentors()
-      .then(res => {
-        if (res.status === 200)
-        {
-          this.mentors = res.data
-          console.log(this.mentors)
+    getFields()
+      .then((res) => {
+        if (res.status === 200) {
+          this.fields = res.data;
+          console.log(this.locations);
         }
       })
-    .catch(e => {
-        console.log(e)
+      .catch((e) => {
+        console.log(e);
+      });
+
+    getMentors()
+      .then((res) => {
+        if (res.status === 200) {
+          this.mentors = res.data;
+          this.findListMentors = res.data;
+          console.log(this.mentors);
         }
-    ); }
-})
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  },
+  methods: {
+    handleSelectLocationChange() {
+      const selectElement = document.getElementById("locationSelect");
+      const selectedOption = selectElement.value;
+      if (selectedOption === "none") {
+        this.mentors = this.findListMentors;
+      } else {
+        this.mentors = this.findListMentors.filter(
+          (mentor) => mentor.locationName === selectedOption
+        );
+        console.log(this.mentors);
+      }
+    },
+    handleSelectFieldChange() {
+      const selectElement = document.getElementById("fieldSelect");
+      const selectedOption = selectElement.value;
+      if (selectedOption === "none") {
+        this.mentors = this.findListMentors;
+      } else {
+        this.mentors = this.findListMentors.filter(mentor =>
+            mentor.fields.toLowerCase().includes(selectedOption.toLowerCase())
+          );
+      }
+    },
+
+    handleInputMentorChange(event) {
+      if (event.target.value === "") {
+        this.mentors = this.findListMentors;
+      } else {
+        console.log("Input value:", event.target.value);
+        const searchRegex = new RegExp(event.target.value, "i");
+        this.mentors = this.findListMentors.filter((mentor) =>
+          searchRegex.test(mentor.name)
+        );
+      }
+    },
+  },
+};
 </script>

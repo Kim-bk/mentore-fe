@@ -12,19 +12,35 @@ defineProps({
 const emit = defineEmits(['confirm']);
 
 export default {
+  data(){
+    return {
+      errorM:''
+    };
+  },
   components: {
     VueFinalModal
   },
-  data() {},
   methods: {
     handleClick() {
         const payload = {
             title: this.title,
             detail: this.detail,
             duration: this.duration,
-            timeStart: this.timeStart
+            timeStart: this.timeStart,
+            linkGoogleMeet: this.linkGoogleMeet,
         }
-      this.$emit('addApointment', payload);
+        const allPropertiesAreNullOrUndefined = Object.values(payload).every(value => value === undefined);
+       if (payload.title === undefined || payload.linkGoogleMeet === undefined || payload.detail === undefined || payload.duration === undefined
+       || payload.timeStart === undefined)
+       {
+          this.errorM = "Vui lòng nhập đầy đủ thông tin!"
+          console.log(this.errorM);
+       }
+       else
+       {
+        this.$emit('addApointment', payload);
+       }
+      
     },
     cancel() {
       this.$emit('cancel');
@@ -42,24 +58,29 @@ export default {
       overlay-transition="vfm-fade"
       content-transition="vfm-fade"
     >
-        <h1>Add Apointments</h1>
+        <h3>Tạo lịch hẹn</h3>
+        <p style="font-weight:bold; color:red; font-size:18px;"> {{this.errorM}} </p>
         <!-- <slot></slot> -->
         <form>
             <div class="form-group">
-                <label for="title">Title</label>
+                <label for="title">Tên</label>
                 <input type="text" class="form-control" id="title" aria-describedby="emailHelp" placeholder="Enter title" v-model="title">
             </div>
             <div class="form-group">
-                <label for="detail">Detail</label>
+                <label for="detail">Chi tiết</label>
                 <textarea class="form-control" name="detail" id="" cols="30" rows="10" v-model="detail"></textarea>
             </div>
 
             <div class="form-group">
-                <label for="timeStart">Time Start</label>
+                <label for="timeStart">Thời gian</label>
                 <input type="time" class="form-control" id="timeStart" aria-describedby="emailHelp" v-model="timeStart">
             </div>
 
             <div class="form-group">
+                <label for="timeStart">Link Google Meet</label>
+                <input type="text" class="form-control" id="linkGoogleMeet" aria-describedby="emailHelp" v-model="linkGoogleMeet">
+            </div>
+            <!-- <div class="form-group">
                 <label for="duration">Duration</label>
                 <select class="form-control" name="duration" v-model="duration">
                     <option class="my-1" value="5">5 minutes</option>
@@ -71,7 +92,7 @@ export default {
                     <option class="my-1" value="75">1.5 hour</option>
                     <option class="my-1" value="90">2 hour</option>
                 </select>
-            </div>
+            </div> -->
         </form>
         <div class="d-flex justify-content-end">
           <button class="btn btn-secondary px-4 py-2 ml-0" @click="cancel">Cancel</button>

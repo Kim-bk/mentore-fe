@@ -37,12 +37,15 @@
             <div v-for="post in userPosts" :key="post.id">
               <div class="feed d-flex flex-column" id="{{ post.id }}">
                 <div class="p-2">
+                  <h5 v-if="post.isAccepted" style="color:green; font-size:bold; font-style:italic; text-align:center" >Đã phê duyệt</h5>
+                  <h5 v-else style="color:red; font-size:bold; font-style:italic;text-align:center">Chưa phê duyệt</h5>
                   <div style="position: relative; height: 100px">
                     <img
-                      src="@/assets/images/user/user1.png"
+                      :src=post.avatar
                       alt="Avatar"
                       class="avatar"
-                      style="cursor: pointer"
+                      style="cursor: pointer;"
+                      
                     />
                     <p
                       class="name-user"
@@ -53,7 +56,7 @@
                         font-size: 16px;
                       "
                     >
-                      Tuong Vy L
+                      {{ post.userFullName }}
                     </p>
                     <p
                       class="name-user"
@@ -125,11 +128,11 @@
 
                   <div class="p-2">
                     <div class="text-feed">
-                      <p style="font-weight: bold; color: black; bottom: 15px">
+                      <p style="font-weight: bold; color: black; bottom: 15px; font-size:21px">
                         {{ post.title }}
                       </p>
 
-                      <p>
+                      <p style="font-size:17px">
                         {{ post.content }}
                         <br />
                       </p>

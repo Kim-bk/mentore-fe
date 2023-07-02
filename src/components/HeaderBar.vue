@@ -62,19 +62,8 @@
                                 <li class="dropdown" > 
                                     <a >Nhiều hơn</a>
                                         <ul class="dropdown-menu">
-                                            <li><a>Đăng ký Cộng tác viên</a></li>
-                                            <li><a>Tuyển dụng</a></li>
-                                            <li><a>Thư viện</a></li>
-                                            
                                             <li><router-link to="/workshops">Tìm kiếm Workshop</router-link></li>
                                             <li><a href="sponsor.html">Ưu đãi từ đối tác</a></li>
-                                            <li class="dropdown"><a style="user-select: auto; width:100%">Thư viện</a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a>Traning cho tổ chức</a></li>
-                                                    <li><a>Tài trợ sản phẩm</a></li>
-                                                    
-                                                </ul>
-                                            </li>
                                         </ul>
                                 </li>
                             </ul>
@@ -108,7 +97,12 @@
                                     <ul class="dropdown-menu">
                                         <li><router-link to="/calendar">Lịch hẹn</router-link></li>
                                         <li><router-link to="/user-post">Bài đăng của tôi</router-link></li>
-                                        <li><router-link to="/conversation">Hội thoại</router-link></li>
+                                        <li v-if="this.isMentee">
+                                            <router-link to="/workshop/mentee">Workshops của tôi</router-link>
+                                        </li>
+                                        <li v-else>
+                                            <router-link to="/workshop/mentor">Workshops của tôi</router-link>
+                                        </li>
                                         <li><a v-on:click="logout">Đăng xuất</a></li>
                                     </ul>
                                    
@@ -152,9 +146,10 @@ export default{
 		return{
             user : {
                 email:'',
-                name:''
+                name:'',
             },
-            imgSrc:''
+            imgSrc:'',
+            isMentee:true,
 		}
 	},
     methods: {
@@ -165,22 +160,20 @@ export default{
             window.location.replace("http://localhost:8080/");
         },
 
-         getUnits: function() { getUser()
-				.then(res => {
-					if (res.status === 200)
-					{
-                        var vueObject = this
-                        vueObject.imgSrc = 'https://ui-avatars.com/api/?name=' + res.data.email;
-					}
-                    if (res.status === 401)
-                    {
-                        window.location.replace("http://localhost:8080/");
-                    }
-				})
-			.catch(e => {
-                    console.log(e)
-                    }
-                ); }
+         getUnits: function() { 
+            getUser()
+            .then(res => {
+                if (res.status === 200)
+                {
+                    var vueObject = this
+                    vueObject.imgSrc = res.data.avatar;
+                    vueObject.isMentee = res.data.isMentee
+                }
+            })
+        .catch(e => {
+                console.log(e)
+                }
+            ); }
     },
     beforeMount() {
         var vueObject = this

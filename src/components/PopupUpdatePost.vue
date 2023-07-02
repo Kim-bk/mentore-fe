@@ -1,5 +1,5 @@
 <template>
-  <div class="post-form">
+  <div class="post-form" style="height:100%; align-items: center; justify-content: center;  display: flex;">
     <div class="popup">
       <div class="popup-inner">
         <h2 style="padding-left: 250px; color: black">Cập nhật</h2>

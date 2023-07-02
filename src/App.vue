@@ -10,8 +10,6 @@ import Feed from '@/views/FeedView.vue';
 import AccountType from '@/views/AccountType.vue';
 import ListMentor from '@/views/ListMentorView.vue';
 import ListWorkShop from '@/views/ListWorkShopView.vue';
-import Admin from '@/views/Admin/AdminView.vue';
-
 
 export default({
 	components :{
@@ -22,7 +20,6 @@ export default({
 		AccountTypeView: AccountType,
 		ListMentorView: ListMentor,
 		ListWorkShopView: ListWorkShop,
-		AdminView: Admin
 	}
 })
 </script>
