@@ -1,8 +1,8 @@
 <template>
     <header-bar style="position: fixed; width: 100%;top:0px"></header-bar>
 
-    
-<div class="container-xl px-4 mt-4" style="top:100px; left:20%; position: fixed; font-family: 'Quicksand', sans-serif;">
+<div class="container-xl px-4 mt-4" 
+    style="top:120px; left:0%; position: relative;font-family: 'Quicksand', sans-serif;">
     <!-- Account page navigation-->
     <!-- <nav class="nav nav-borders">
         <a class="nav-link active ms-0" href="https://www.bootdey.com/snippets/view/bs5-edit-profile-account-details" target="__blank">Profile</a>
@@ -45,7 +45,8 @@
                     font-weight: 400;
                     background: none;
                     background-color: #b25cd9;
-                    margin-bottom:10px;" @click="bookAppointment()">
+                    margin-bottom:10px;" @click="bookAppointment()"
+                    v-if="this.userGroup === 'MENTEE'">
                     Đặt lịch hẹn</button>
                 </div>
             </div>
@@ -83,35 +84,56 @@
                        
                 </div>
             </div>
-            <div class="card mb-4">
+            <div class="card mb-4" v-if="this.experiences.length === 0">
                 <div class="card-header" style="color:rgb(232, 103, 236); font-size:23px; font-weight:bold;" >Kinh nghiệm làm việc</div>
-                <div class="card-body">
+                <div class="card-body" >
                         <!-- Form Row        -->
                         <div class="row">
                             <div class="col" style="width: 70px">
-                                <img :src="require('../assets/images/logo-official.png')" style="width:40px;"/>
+                                <img :src="require('../assets/images/logo-official.png')" style="width:40px; margin-bottom:10px"/>
                             </div>
                             <div class="col-6" style="padding-top:15px">
-                            Marketting / Sales tại FPT Software
+                            HR Manager tại FPT Software
                             </div>
                             <div class="col" style="padding-top:15px">
-                             2018
+                             2019
                             </div>
+                            <br/>
                         </div>
-                        <br/>
+
                         <div class="row">
                             <div class="col" style="width: 70px">
                                 <img :src="require('../assets/images/logo-official.png')" style="width:40px;"/>
                             </div>
                             <div class="col-6" style="padding-top:15px">
-                            Kế toán tại MB Bank
+                            Project Manager tại VNPT Software
                             </div>
                             <div class="col" style="padding-top:15px">
-                             2015
+                             2022
                             </div>
+                            <br/>
                         </div>
                 </div>
             </div>
+            <div class="card mb-4" v-else>
+                <div class="card-header" style="color:rgb(232, 103, 236); font-size:23px; font-weight:bold;" >Kinh nghiệm làm việc</div>
+                <div class="card-body" >
+                        <!-- Form Row        -->
+                        <div class="row" v-for="exp in mentor.experiences" :key="exp.id" style="margin-bottom:10px">
+                            <div class="col" style="width: 70px">
+                                <img :src="require('../assets/images/logo-official.png')" style="width:40px;"/>
+                            </div>
+                            <div class="col-6" style="padding-top:15px">
+                            {{ exp.job }} tại {{ exp.company }}
+                            </div>
+                            <div class="col" style="padding-top:15px">
+                             {{ exp.year }}
+                            </div>
+                            <br/>
+                        </div>
+                </div>
+            </div>
+           
         </div>
    
     </div>
@@ -128,16 +150,22 @@ export default({
     data(){
            return {
               id: this.$route.params.id, //this is the id from the browser
-              mentor: {}
+              mentor: {},
+              userGroup:'',
+              experiences:[]
            }
        },
 
     mounted() {
+    this.userGroup = localStorage.getItem('userGroup');
+
      getMentorById(this.id)
       .then(res => {
         if (res.status === 200)
         {
           this.mentor = res.data
+          this.experiences = res.data.experiences
+          console.log(this.experiences.length)
           console.log(this.mentor)
         }
       })

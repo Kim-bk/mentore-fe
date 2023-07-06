@@ -1,10 +1,4 @@
 <template>
-	<div class="first-body">
-		<div class="logo">
-			<router-link to="/"><img :src="require('../assets/images/logo-official.png')"/></router-link>
-		</div>
-	</div>  
-
 	<div class="page-wrapper">
 
 		<div class="preloader"></div>
@@ -15,7 +9,7 @@
 
 					<!-- Title Box -->
 					<div class="title-box">
-						<h2>Đăng nhập</h2>
+						<h2>Đăng nhập Quản trị viên</h2>
 						<!-- <div class="text"><span class="theme_color">Đăng nhập</span> để vào học
 						</div> -->
 					</div>
@@ -55,37 +49,6 @@
 									</button>
 							</div>
 						</form>
-
-							<div class="form-group">
-								<div class="users" >Quên mật khẩu? <a href="login.html">Lấy lại mật khẩu</a></div>
-							</div>
-							<div style="position:relative;">
-								<hr style="height:1px;border:none;color:#333;background-color:#333;"/>
-								<div class="or"><span class="txt" style="padding-left:47%; font-size: 16px; font-weight: bold;">hoặc</span></div>
-                            	
-							</div>
-							
-                            <div class="another-choices" style="margin-top:10px;">
-                                <button type="button" class="btn-another">
-                                    <img :src="require('../assets/images/icons/google.png')" height="40" width="40" style="text-align:left">
-                                    <span class="txt" style="padding-left:60px">Đăng nhập bằng tài khoản Google</span>
-                        
-                                 
-                                </button>
-                                <button type="button" class="btn-another">
-                                    <img :src="require('../assets/images/icons/fb.png')" height="40" width="40">
-                                        <span class="txt" style="padding-left:50px">Đăng nhập bằng tài khoản Facebook</span>
-
-                                    
-                                </button>
-                            </div>
-							<div class="form-group">
-								<div class="users">Bạn chưa có tài khoản? 
-									<router-link to="/account-type">Đăng ký</router-link>
-								</div>
-							
-
-							</div>
 					</div>
 
 				</div>
@@ -95,7 +58,7 @@
 </template>
 
 <script>
-import {login} from '../services/UserService';
+import {login} from '@/services/AdminService';
 
 export default{
 	data(){
@@ -117,7 +80,7 @@ export default{
 					console.log(this.email);
 					if (res.status === 200)
 					{
-						this.$router.push('/');
+						this.$router.push('/admin/posts');
 					}
 				})
 			.catch(e => {

@@ -25,13 +25,11 @@ export default {
         const payload = {
             title: this.title,
             detail: this.detail,
-            duration: this.duration,
             timeStart: this.timeStart,
             linkGoogleMeet: this.linkGoogleMeet,
         }
         const allPropertiesAreNullOrUndefined = Object.values(payload).every(value => value === undefined);
-       if (payload.title === undefined || payload.linkGoogleMeet === undefined || payload.detail === undefined || payload.duration === undefined
-       || payload.timeStart === undefined)
+       if (payload.title === undefined || payload.linkGoogleMeet === undefined || payload.detail === undefined || payload.timeStart === undefined)
        {
           this.errorM = "Vui lòng nhập đầy đủ thông tin!"
           console.log(this.errorM);

@@ -185,6 +185,7 @@ export default {
     {
       var vueObject = this
       vueObject.errorM = "Hãy nhập một Email hợp lệ!"
+      vueObject.successM = ""
     } 
     else
     {
@@ -195,6 +196,7 @@ export default {
 					{
             var vueObject = this
             vueObject.successM = "Đăng ký tài khoản thành công. Vui lòng kiểm tra Email để xác nhận!"
+            vueObject.errorM = ""
 					}
 				})
 			.catch(e => {

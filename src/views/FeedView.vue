@@ -24,7 +24,6 @@
                       alt="Avatar"
                       class="avatar"
                       style="cursor: pointer;"
-                      
                     />
                     <p
                       class="name-user"

@@ -35,7 +35,7 @@ export async function getWorkshops() {
     try
     {
         refreshTokenIfNeeded()
-        const response = await axios.get('/api/workshop/admin');
+        const response = await axios.get('/api/workshop/admin', {headers: { 'Authorization': 'Bearer ' + localStorage.getItem('accessToken') }});
         return response;
     }
     catch (error) {
@@ -92,6 +92,20 @@ export async function deleteWorkshop(id) {
     }
 }
 
-
+export async function login(data) {
+    const response = await axios.post(`/api/admin/login`, data);
+    if (response.status === 200){
+        console.log(response.data.accessToken);
+        localStorage.setItem("accessToken", response.data.accessToken);
+        localStorage.setItem("refreshToken", response.data.refreshToken);
+        localStorage.setItem("accountId", response.data.userId);
+        localStorage.setItem("userGroup", response.data.userGroup)
+    }
+    if (response.status === 400){
+        console.log("login failed");
+        this.$alert(res.data);
+    }
+    return response;
+}
   
 

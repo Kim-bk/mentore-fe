@@ -220,7 +220,7 @@ export default {
       .then((res) => {
         if (res.status === 200) {
           this.fields = res.data;
-          console.log(this.locations);
+          console.log(this.fields);
         }
       })
       .catch((e) => {

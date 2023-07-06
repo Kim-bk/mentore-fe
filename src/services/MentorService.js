@@ -22,4 +22,15 @@ export async function createMentor(data) {
     return response;
 }
 
+export async function deleteExp(id) {
+    refreshTokenIfNeeded()
+    const response = await axios.delete('/api/mentor/experience/'+id, {headers: { 'Authorization': 'Bearer ' + localStorage.getItem('accessToken') }});
+    return response;
+}
+
+export async function createExp(payload) {
+    refreshTokenIfNeeded()
+    const response = await axios.post('/api/mentor/experience', payload, {headers: { 'Authorization': 'Bearer ' + localStorage.getItem('accessToken') }});
+    return response;
+}
 

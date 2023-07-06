@@ -9,6 +9,7 @@ import ListWorkShop from "../views/ListWorkShopView.vue"
 import SuccessPage from "../views/SuccessPage.vue"
 import InfoMentor from '@/views/InfoMentor.vue';
 import ProfileMentee from '@/views/ProfileMentee.vue';
+import ProfileMentor from '@/views/ProfileMentor.vue';
 import Calendar from '@/views/CalendarView.vue';
 import MentorCalendar from '../views/MentorCalendar.vue';
 import UserPost from '@/views/UserPost.vue';
@@ -23,6 +24,8 @@ import WorkshopCreate from '@/views/Admin/components/CreateWorkshop.vue';
 import ForbiddenPage from '@/views/Forbidden/403.vue'
 import MentorWorkshop from '@/views/MentorWorkshop.vue'
 import MenteeWorkshop from '@/views/MenteeWorkshop.vue'
+import AdminLogin from '@/views/Admin/AdminLogin.vue'
+import UpdateAppointment from '@/components/UpdateAppointment.vue'
 
 const routes = [
   {
@@ -67,6 +70,10 @@ const routes = [
     component: ProfileMentee
   },
   {
+    path: '/profile-mentor',
+    component: ProfileMentor
+  },
+  {
     path: '/calendar',
     component: Calendar
   },
@@ -81,6 +88,10 @@ const routes = [
   {
     path: '/post/update/:id',
     component: PopupUpdatePost
+  },
+  {
+    path: '/appointment/:id',
+    component: UpdateAppointment
   },
   {
     path: '/calendar/mentor/:id',
@@ -118,6 +129,10 @@ const routes = [
   {
     path: '/workshop/mentee',
     component: MenteeWorkshop
+  },
+  {
+    path: '/admin',
+    component: AdminLogin
   },
 ]
 

@@ -81,14 +81,16 @@
                     <nav class="main-menu show navbar-expand-md">
                         <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
                             <ul class="navigation clearfix login-nav">
+                                
                                 <li class="dropdown" v-if="imgSrc !==''"> 
-                                    <a href="http://localhost:8080/profile-mentee">Trang của tôi</a>
+                                    <router-link to="/profile-mentee" v-if="this.isMentee">Trang của tôi</router-link>
+                                    <router-link to="/profile-mentor" v-else>Trang của tôi</router-link>
                                     
                                 </li>
                             
                                 
                                 <li class="dropdown" v-if="imgSrc !==''">
-                                    <div class="user-profile" style="top:-10px; position:relative">
+                                    <div class="user-profile" style="top:-10px; position:relative; border-radius:10px; width:72px;">
                                         <div class="user-image" style=" border-radius:10px">
                                             <img :src="`${imgSrc}`">
 
