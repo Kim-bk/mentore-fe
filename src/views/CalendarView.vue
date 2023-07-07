@@ -25,7 +25,7 @@
   </table>
   <FullCalendar
     v-bind:options="options"
-    style="top: 110px; left: 34%; position: fixed; width: 60vw; height: 20vh"
+    style="top: 110px; left: 34%; position: fixed; width: 60vw; height:20vh"
   ></FullCalendar>
 
   <ModalsContainer />
