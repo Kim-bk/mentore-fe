@@ -98,7 +98,7 @@ export default {
   },
   methods: {
     updateWorkshop(id) {
-      window.location.href = 'http://localhost:8080/workshop/update/'+id
+      window.location.href = 'https://kim-bk.github.io/mentore-fe/workshop/update/'+id
     },
     deleteWorkshop(id) {
       deleteWorkshop(id)

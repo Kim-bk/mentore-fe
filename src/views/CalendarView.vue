@@ -17,7 +17,7 @@
         <td>{{ appt.start }}</td>
         <td>{{ appt.timeStart }}</td>
         <td><a :href="appt.linkGoogleMeet">Link tham gia</a></td>
-        <td><a :href ="'http://localhost:8080/appointment/'+appt.id" style="color:green">Cập nhật</a></td>
+        <td><a :href ="'https://kim-bk.github.io/mentore-fe/appointment/'+appt.id" style="color:green">Cập nhật</a></td>
         <!-- <td><router-link to="/appointment/" + appt.id>Cập nhật</router-link></td> -->
       </tr>
       <!-- Add more rows for additional appointments -->

@@ -1,6 +1,6 @@
 module.exports = {
   devServer: {
-    proxy: "http://localhost:41783",
+    proxy: "https://mentore.azurewebsites.net",
   },
   publicPath:
     process.env.NODE_ENV === "production"

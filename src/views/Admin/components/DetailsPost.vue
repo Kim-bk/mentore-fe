@@ -30,7 +30,7 @@
             </p>
             <a
               class="btn-close"
-              href="http://localhost:8080/admin/posts"
+              href="https://kim-bk.github.io/mentore-fe/admin/posts"
               style="margin-left: 470px; width: 200px"
             >
               Quay lại

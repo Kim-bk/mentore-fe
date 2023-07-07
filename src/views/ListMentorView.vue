@@ -310,7 +310,7 @@
                 >
                   <div>
                     <a
-                      :href="'http://localhost:8080/view-mentor/' + mentor.id"
+                      :href="'https://kim-bk.github.io/mentore-fe/view-mentor/' + mentor.id"
                       class="w-full text-center blue-btn"
                       >Xem Profile</a
                     >
