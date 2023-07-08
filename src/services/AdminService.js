@@ -2,6 +2,7 @@ import axios from 'axios'
 import {refreshTokenIfNeeded} from "@/services/RefreshTokenService"
 import router from "@/router";
 
+
 export async function getPosts() {
     try
     {

@@ -8,7 +8,7 @@ export async function pay(data) {
         console.log("Unauthorized day");
         console.log(error)
           // Handle 401 Unauthorized error
-        window.location.href = "https://kim-bk.github.io/mentore-fe/login";
+        window.location.href = "https://kim-bk.github.io/login";
       });
 
     return response;

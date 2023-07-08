@@ -137,7 +137,7 @@
                         >
                           <a
                             :href="
-                              'https://kim-bk.github.io/mentore-fe/view-mentor/' + mentor.id
+                              'https://kim-bk.github.io/view-mentor/' + mentor.id
                             "
                           >
                             <img :src="mentor.avatar" alt="Avatar" />

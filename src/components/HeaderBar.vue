@@ -159,7 +159,7 @@ export default{
             var vueObject = this
             vueObject.imgSrc = ''
             await logOut()
-            window.location.replace("https://kim-bk.github.io/mentore-fe/");
+            window.location.replace("https://kim-bk.github.io/");
         },
 
          getUnits: function() { 

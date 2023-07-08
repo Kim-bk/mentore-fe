@@ -176,7 +176,7 @@ export default({
 
     methods:{
         bookAppointment(){
-            window.location.href = 'https://kim-bk.github.io/mentore-fe/calendar/mentor/'+this.id
+            window.location.href = 'https://kim-bk.github.io/calendar/mentor/'+this.id
         }
     }
 })

@@ -442,7 +442,7 @@ export default {
     },
 
     updatePost(id){
-      window.location.href = 'https://kim-bk.github.io/mentore-fe/post/update/'+id
+      window.location.href = 'https://kim-bk.github.io/post/update/'+id
     },
 
     async deletePost(id) {
